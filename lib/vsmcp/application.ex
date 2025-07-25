@@ -10,12 +10,27 @@ defmodule Vsmcp.Application do
 
   @impl true
   def start(_type, _args) do
+    # Attach telemetry handlers for web interface monitoring
+    VsmcpWeb.Telemetry.attach_handlers()
+    
     children = [
       # Start the Telemetry supervisor
       Vsmcp.Telemetry,
       
+      # Start Web Telemetry for Phoenix metrics
+      VsmcpWeb.Telemetry,
+      
       # Start Phoenix PubSub for inter-system communication
       {Phoenix.PubSub, name: Vsmcp.PubSub},
+      
+      # Start Registry for ExGram
+      {Registry, keys: :unique, name: Registry.ExGram},
+      
+      # Start Finch for HTTP client (required by ExGram)
+      {Finch, name: Vsmcp.Finch},
+      
+      # Start the Phoenix endpoint for web interface
+      VsmcpWeb.Endpoint,
       
       # Start the AMQP nervous system (must start before systems)
       Vsmcp.AMQP.Supervisor,
@@ -43,7 +58,10 @@ defmodule Vsmcp.Application do
       Vsmcp.Integration.Manager,
       
       # Start the Security and Variety Management supervisor
-      Vsmcp.Security.SecuritySupervisor
+      Vsmcp.Security.SecuritySupervisor,
+      
+      # Start the Telegram interface (if configured)
+      Vsmcp.Interfaces.TelegramSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

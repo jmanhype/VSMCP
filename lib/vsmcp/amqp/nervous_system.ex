@@ -6,7 +6,14 @@ defmodule Vsmcp.AMQP.NervousSystem do
   through the nervous system channels without dealing with AMQP details.
   """
   
-  alias Vsmcp.AMQP.{Producers.BaseProducer, ChannelMonitor}
+  alias Vsmcp.AMQP.{Producers.BaseProducer, ChannelMonitor, ChannelManager}
+  
+  # Exchange definitions
+  @command_exchange "vsm.command"
+  @algedonic_exchange "vsm.algedonic"
+  @audit_exchange "vsm.audit"
+  @intel_exchange "vsm.intel"
+  @horizontal_exchange "vsm.horizontal"
   
   @doc """
   Send a command from one system to another.
@@ -148,6 +155,44 @@ defmodule Vsmcp.AMQP.NervousSystem do
     
     :ok
   end
+  
+  @doc """
+  Publish a message on a specific channel type.
+  """
+  def publish_on_channel(channel_type, message) do
+    with {:ok, channel} <- ChannelManager.get_channel(channel_type),
+         exchange <- get_exchange_for_channel(channel_type),
+         routing_key <- get_routing_key(channel_type, message) do
+      metadata = message[:metadata] || %{}
+      payload = Jason.encode!(%{
+        message: message,
+        timestamp: DateTime.utc_now(),
+        metadata: metadata
+      })
+      
+      AMQP.Basic.publish(channel, exchange, routing_key, payload)
+    end
+  end
+  
+  @doc """
+  Broadcast an algedonic signal to all systems.
+  """
+  def broadcast_algedonic(signal) do
+    publish_on_channel(:algedonic, signal)
+  end
+  
+  defp get_exchange_for_channel(:intel), do: @intel_exchange
+  defp get_exchange_for_channel(:audit), do: @audit_exchange
+  defp get_exchange_for_channel(:algedonic), do: @algedonic_exchange
+  defp get_exchange_for_channel(:command), do: @command_exchange
+  defp get_exchange_for_channel(:horizontal), do: @horizontal_exchange
+  defp get_exchange_for_channel(_), do: @command_exchange
+  
+  defp get_routing_key(:algedonic, %{priority: :critical}), do: "*.critical"
+  defp get_routing_key(:algedonic, _), do: "*"
+  defp get_routing_key(:intel, _), do: "system4.environmental"
+  defp get_routing_key(:audit, _), do: ""
+  defp get_routing_key(_, _), do: ""
   
   @doc """
   Request status from multiple systems.

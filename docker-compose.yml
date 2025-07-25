@@ -1,0 +1,126 @@
+version: '3.3'
+
+services:
+  # PostgreSQL database
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: vsmcp
+      POSTGRES_PASSWORD: vsmcp_password
+      POSTGRES_DB: vsmcp_prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vsmcp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # RabbitMQ message broker
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: vsmcp
+      RABBITMQ_DEFAULT_PASS: vsmcp_password
+      RABBITMQ_DEFAULT_VHOST: vsmcp
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # VSMCP application
+  vsmcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # Node configuration
+      RELEASE_NODE: vsmcp@vsmcp
+      RELEASE_COOKIE: secure_docker_cookie
+      
+      # Database configuration
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_URL: postgresql://vsmcp:vsmcp_password@postgres:5432/vsmcp_prod
+      RUN_MIGRATIONS: "true"
+      
+      # AMQP configuration
+      AMQP_HOST: rabbitmq
+      AMQP_PORT: 5672
+      AMQP_URL: amqp://vsmcp:vsmcp_password@rabbitmq:5672/vsmcp
+      
+      # Application configuration
+      VSMCP_PORT: 4000
+      VSMCP_LOG_LEVEL: info
+      
+      # MCP configuration
+      MCP_SERVER_PORT: 5000
+      ENABLE_NEURAL_PROCESSING: "true"
+      ENABLE_VARIETY_ACQUISITION: "true"
+      ENABLE_AUTONOMOUS_MODE: "true"
+      
+    ports:
+      - "4000:4000"  # Web interface
+      - "5000:5000"  # MCP server
+      - "9090:9090"  # Metrics
+    volumes:
+      - vsmcp_data:/opt/vsmcp/data
+      - vsmcp_logs:/opt/vsmcp/log
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/opt/vsmcp/bin/vsmcp", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # Prometheus for metrics
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    volumes:
+      - ./rel/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9091:9090"
+    depends_on:
+      - vsmcp
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./rel/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./rel/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  vsmcp_data:
+  vsmcp_logs:
+  prometheus_data:
+  grafana_data:

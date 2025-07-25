@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  # RabbitMQ for AMQP nervous system
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: vsmcp-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: vsmcp
+      RABBITMQ_DEFAULT_PASS: vsmcp_secret
+      RABBITMQ_DEFAULT_VHOST: vsmcp
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # PostgreSQL for persistent state
+  postgres:
+    image: postgres:16-alpine
+    container_name: vsmcp-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: vsmcp
+      POSTGRES_USER: vsmcp
+      POSTGRES_PASSWORD: vsmcp_secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vsmcp"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # VSMCP Application
+  vsmcp:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    container_name: vsmcp-app
+    ports:
+      - "4010:4010"  # MCP port
+      - "9568:9568"  # Metrics port
+    environment:
+      # Core Configuration
+      VSMCP_NODE_NAME: vsmcp@vsmcp-app
+      VSMCP_COOKIE: development-cookie
+      VSMCP_LOG_LEVEL: info
+      
+      # Database Configuration
+      DATABASE_URL: postgresql://vsmcp:vsmcp_secret@postgres:5432/vsmcp
+      
+      # AMQP Configuration
+      VSMCP_AMQP_URL: amqp://vsmcp:vsmcp_secret@rabbitmq:5672/vsmcp
+      VSMCP_AMQP_ENABLED: "true"
+      VSMCP_AMQP_POOL_SIZE: "10"
+      
+      # MCP Configuration
+      VSMCP_MCP_ENABLED: "true"
+      VSMCP_MCP_PORT: "4010"
+      VSMCP_MCP_TRANSPORT: tcp
+      
+      # Security Configuration
+      VSMCP_SECURITY_ENABLED: "true"
+      VSMCP_Z3N_ZONES: dev,test,prod
+      
+      # Telemetry Configuration
+      VSMCP_TELEMETRY_ENABLED: "true"
+      VSMCP_METRICS_PORT: "9568"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - vsmcp_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9568/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vsmcp-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    depends_on:
+      - vsmcp
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vsmcp-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+
+volumes:
+  rabbitmq_data:
+  postgres_data:
+  vsmcp_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: vsmcp-network

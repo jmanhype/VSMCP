@@ -31,8 +31,8 @@ defmodule Vsmcp.MCP.Server do
   def init(opts) do
     port = opts[:port] || 3000
     
-    # Initialize tool registry with VSM tools
-    {:ok, registry} = ToolRegistry.start_link()
+    # Use the existing tool registry from supervisor
+    registry = opts[:registry] || Vsmcp.MCP.ToolRegistry
     register_vsm_tools(registry)
     
     state = %{

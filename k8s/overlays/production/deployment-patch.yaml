@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vsmcp
+spec:
+  replicas: 5
+  template:
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - vsmcp
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - name: vsmcp
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "4000m"
+        env:
+        - name: ERLANG_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: prod-vsmcp-secrets
+              key: RELEASE_COOKIE
+        - name: RELEASE_DISTRIBUTION
+          value: "name"
+        - name: RELEASE_NODE
+          value: "prod-vsmcp-$(HOSTNAME).prod-vsmcp-headless.vsmcp-prod.svc.cluster.local"

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vsmcp
+  labels:
+    app.kubernetes.io/name: vsmcp
+    app.kubernetes.io/part-of: vsmcp

@@ -1,0 +1,64 @@
+## Name of the node
+-name ${NODE_NAME}
+
+## Cookie for distributed erlang
+-setcookie ${ERLANG_COOKIE}
+
+## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
+-heart
+
+## Enable kernel poll and a few async threads
++K true
++A 256
+
+## Increase number of concurrent ports/sockets
+-env ERL_MAX_PORTS 1048576
+
+## Tweak GC to run more often
+-env ERL_FULLSWEEP_AFTER 10
+
+## Enable SMP
+-smp enable
+
+## Start the Elixir shell
+-user elixir
+
+## Set scheduler bind type for better performance
++sbt db
+
+## Increase distribution buffer size
++zdbbl 128000
+
+## Enable time warp mode for better time handling
++C multi_time_warp
+
+## Increase max processes
++P 5000000
+
+## Production settings
+-env ERL_CRASH_DUMP_SECONDS 30
+-env ERL_CRASH_DUMP /var/log/vsmcp/erl_crash.dump
+
+## Daemon mode settings
+-detached
+-noinput
+-hidden
+
+## Memory management
++MMmcs 30
++MMsco true
+
+## Enable busy port polling
++spp true
+
+## Scheduler settings for production
++scl false
++sws default
++swt low
+
+## IO thread pool size
++A 256
+
+## Dirty scheduler threads
++SDcpu 8:8
++SDio 8

@@ -1,0 +1,189 @@
+/* Import Tailwind CSS */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom VSM Cybernetic Styles */
+@layer base {
+  :root {
+    --vsm-primary: #00ff41;
+    --vsm-secondary: #0080ff;
+    --vsm-accent: #ff0080;
+    --vsm-warning: #ffaa00;
+    --vsm-dark: #0a0a0a;
+    --vsm-darker: #050505;
+    --vsm-grid: rgba(0, 255, 65, 0.1);
+    --vsm-glow: 0 0 20px rgba(0, 255, 65, 0.5);
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  /* VSM Panel Styles */
+  .vsm-panel {
+    @apply relative;
+  }
+
+  .vsm-panel::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent rounded-lg blur-xl;
+  }
+
+  /* VSM Circuit Board Pattern */
+  .vsm-circuit-pattern {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vsm-circuit-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 20px,
+        rgba(0, 255, 65, 0.05) 20px,
+        rgba(0, 255, 65, 0.05) 21px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 20px,
+        rgba(0, 255, 65, 0.05) 20px,
+        rgba(0, 255, 65, 0.05) 21px
+      );
+    pointer-events: none;
+  }
+
+  /* VSM Glow Effect */
+  .vsm-glow {
+    box-shadow: var(--vsm-glow);
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  /* VSM Data Flow Animation */
+  .vsm-data-flow {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 65, 0.2) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: data-flow 3s linear infinite;
+  }
+
+  @keyframes data-flow {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* VSM Neural Pulse */
+  .vsm-neural-pulse {
+    animation: neural-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neural-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.98); }
+  }
+
+  /* VSM System Indicators */
+  .vsm-system-indicator {
+    @apply relative inline-flex h-3 w-3;
+  }
+
+  .vsm-system-indicator span {
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full opacity-75;
+  }
+
+  .vsm-system-indicator span:nth-child(2) {
+    @apply relative inline-flex rounded-full h-3 w-3;
+  }
+
+  /* VSM Button Styles */
+  .vsm-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .vsm-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+
+  .vsm-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* VSM Input Styles */
+  .vsm-input {
+    @apply bg-black/60 border border-green-500/30 rounded-lg px-4 py-2;
+    @apply text-green-400 placeholder-green-400/30;
+    @apply focus:border-green-500 focus:ring-2 focus:ring-green-500/50 focus:outline-none;
+    @apply transition-all duration-200;
+  }
+
+  /* VSM Card Styles */
+  .vsm-card {
+    @apply relative bg-black/80 border border-green-500/30 rounded-lg p-6;
+    @apply hover:border-green-500/60 transition-all duration-300;
+  }
+
+  .vsm-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent rounded-lg blur-xl opacity-0;
+    @apply transition-opacity duration-300;
+  }
+
+  .vsm-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* VSM Loading Animation */
+  .vsm-loading {
+    @apply inline-block w-5 h-5 border-2 border-green-500 border-t-transparent rounded-full;
+    animation: vsm-spin 1s linear infinite;
+  }
+
+  @keyframes vsm-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* VSM Grid Background */
+  .vsm-grid-bg {
+    background-image: 
+      linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 10s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 50px 50px, 50px 50px; }
+  }
+}
+
+@layer utilities {
+  /* VSM Text Colors */
+  .text-vsm-primary { color: var(--vsm-primary); }
+  .text-vsm-secondary { color: var(--vsm-secondary); }
+  .text-vsm-accent { color: var(--vsm-accent); }
+  .text-vsm-warning { color: var(--vsm-warning); }
+
+  /* VSM Background Colors */
+  .bg-vsm-dark { background-color: var(--vsm-dark); }
+  .bg-vsm-darker { background-color: var(--vsm-darker); }
+
+  /* VSM Border Colors */
+  .border-vsm-primary { border-color: var(--vsm-primary); }
+  .border-vsm-secondary { border-color: var(--vsm-secondary); }
+  .border-vsm-accent { border-color: var(--vsm-accent); }
+}

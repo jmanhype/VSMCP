@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vsmcp-config
+  namespace: vsmcp
+  labels:
+    app.kubernetes.io/name: vsmcp
+    app.kubernetes.io/component: config
+data:
+  # Application configuration
+  VSMCP_PORT: "4000"
+  VSMCP_LOG_LEVEL: "info"
+  MCP_SERVER_PORT: "5000"
+  
+  # Feature flags
+  ENABLE_NEURAL_PROCESSING: "true"
+  ENABLE_VARIETY_ACQUISITION: "true"
+  ENABLE_AUTONOMOUS_MODE: "true"
+  ENABLE_MCP_DISCOVERY: "true"
+  
+  # Clustering
+  CLUSTER_GOSSIP_INTERVAL: "5000"
+  
+  # Performance
+  SCHEDULER_BIND_TYPE: "default"
+  ASYNC_THREADS: "128"
+  KERNEL_POLL: "true"
+  
+  # Telemetry
+  TELEMETRY_ENABLED: "true"
+  TELEMETRY_ENDPOINT: "http://prometheus:9090/metrics"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vsmcp-scripts
+  namespace: vsmcp
+  labels:
+    app.kubernetes.io/name: vsmcp
+    app.kubernetes.io/component: scripts
+data:
+  health-check.sh: |
+    #!/bin/bash
+    /opt/vsmcp/bin/vsmcp ping
+    
+  readiness-check.sh: |
+    #!/bin/bash
+    /opt/vsmcp/bin/vsmcp rpc "
+      case GenServer.call(Vsmcp.HealthCheck, :status) do
+        :ready -> System.halt(0)
+        _ -> System.halt(1)
+      end
+    "

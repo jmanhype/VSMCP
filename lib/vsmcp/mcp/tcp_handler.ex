@@ -10,7 +10,7 @@ defmodule Vsmcp.MCP.TCPHandler do
   @behaviour :ranch_protocol
 
   def start_link(ref, socket, transport, opts) do
-    pid = :proc_lib.spawn_link(__MODULE__, init, [{ref, socket, transport, opts}])
+    pid = :proc_lib.spawn_link(__MODULE__, :init, [{ref, socket, transport, opts}])
     {:ok, pid}
   end
 

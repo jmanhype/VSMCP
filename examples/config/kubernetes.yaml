@@ -1,0 +1,371 @@
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vsmcp-system
+  labels:
+    app.kubernetes.io/name: vsmcp
+    app.kubernetes.io/part-of: viable-systems
+
+---
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vsmcp-config
+  namespace: vsmcp-system
+data:
+  # Core configuration
+  VSMCP_LOG_LEVEL: "info"
+  VSMCP_MCP_ENABLED: "true"
+  VSMCP_MCP_PORT: "4010"
+  VSMCP_MCP_TRANSPORT: "tcp"
+  VSMCP_AMQP_ENABLED: "true"
+  VSMCP_AMQP_POOL_SIZE: "20"
+  VSMCP_SECURITY_ENABLED: "true"
+  VSMCP_Z3N_ZONES: "prod,staging,dev"
+  VSMCP_TELEMETRY_ENABLED: "true"
+  VSMCP_METRICS_PORT: "9568"
+  
+  # Variety management
+  VARIETY_CHECK_INTERVAL: "30000"
+  VARIETY_THRESHOLD: "0.85"
+  
+  # System configuration
+  RECURSION_DEPTH: "3"
+  MAX_CONCURRENT_OPERATIONS: "5000"
+  COORDINATION_TIMEOUT: "5000"
+  DECISION_TIMEOUT: "10000"
+
+---
+# Secret for sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vsmcp-secrets
+  namespace: vsmcp-system
+type: Opaque
+stringData:
+  VSMCP_COOKIE: "production-secure-cookie-change-me"
+  DATABASE_URL: "postgresql://vsmcp:password@postgres:5432/vsmcp"
+  VSMCP_AMQP_URL: "amqp://vsmcp:password@rabbitmq:5672/vsmcp"
+
+---
+# Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vsmcp
+  namespace: vsmcp-system
+
+---
+# Role for pod management
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: vsmcp-role
+  namespace: vsmcp-system
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch"]
+
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vsmcp-rolebinding
+  namespace: vsmcp-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vsmcp-role
+subjects:
+- kind: ServiceAccount
+  name: vsmcp
+  namespace: vsmcp-system
+
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vsmcp
+  namespace: vsmcp-system
+  labels:
+    app: vsmcp
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vsmcp
+  template:
+    metadata:
+      labels:
+        app: vsmcp
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9568"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: vsmcp
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - vsmcp
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: vsmcp
+        image: vsmcp:latest
+        imagePullPolicy: Always
+        ports:
+        - name: mcp
+          containerPort: 4010
+          protocol: TCP
+        - name: metrics
+          containerPort: 9568
+          protocol: TCP
+        - name: epmd
+          containerPort: 4369
+          protocol: TCP
+        - name: erlang
+          containerPort: 9100
+          protocol: TCP
+        env:
+        - name: VSMCP_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: VSMCP_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: RELEASE_NODE
+          value: "vsmcp@$(VSMCP_POD_IP)"
+        envFrom:
+        - configMapRef:
+            name: vsmcp-config
+        - secretRef:
+            name: vsmcp-secrets
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: metrics
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: metrics
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        emptyDir: {}
+
+---
+# Service for MCP
+apiVersion: v1
+kind: Service
+metadata:
+  name: vsmcp-mcp
+  namespace: vsmcp-system
+  labels:
+    app: vsmcp
+spec:
+  type: LoadBalancer
+  selector:
+    app: vsmcp
+  ports:
+  - name: mcp
+    port: 4010
+    targetPort: mcp
+    protocol: TCP
+
+---
+# Service for metrics
+apiVersion: v1
+kind: Service
+metadata:
+  name: vsmcp-metrics
+  namespace: vsmcp-system
+  labels:
+    app: vsmcp
+spec:
+  type: ClusterIP
+  selector:
+    app: vsmcp
+  ports:
+  - name: metrics
+    port: 9568
+    targetPort: metrics
+    protocol: TCP
+
+---
+# Headless service for Erlang clustering
+apiVersion: v1
+kind: Service
+metadata:
+  name: vsmcp-headless
+  namespace: vsmcp-system
+  labels:
+    app: vsmcp
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    app: vsmcp
+  ports:
+  - name: epmd
+    port: 4369
+    targetPort: epmd
+  - name: erlang
+    port: 9100
+    targetPort: erlang
+
+---
+# HorizontalPodAutoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: vsmcp-hpa
+  namespace: vsmcp-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: vsmcp
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+
+---
+# PodDisruptionBudget
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vsmcp-pdb
+  namespace: vsmcp-system
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: vsmcp
+
+---
+# NetworkPolicy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vsmcp-network-policy
+  namespace: vsmcp-system
+spec:
+  podSelector:
+    matchLabels:
+      app: vsmcp
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: vsmcp-system
+    - podSelector:
+        matchLabels:
+          app: vsmcp
+    ports:
+    - protocol: TCP
+      port: 4010
+    - protocol: TCP
+      port: 9568
+    - protocol: TCP
+      port: 4369
+    - protocol: TCP
+      port: 9100
+  egress:
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 5672  # RabbitMQ
+    - protocol: TCP
+      port: 5432  # PostgreSQL
+    - protocol: TCP
+      port: 53    # DNS
+    - protocol: UDP
+      port: 53    # DNS
+
+---
+# ServiceMonitor for Prometheus Operator
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vsmcp-metrics
+  namespace: vsmcp-system
+  labels:
+    app: vsmcp
+spec:
+  selector:
+    matchLabels:
+      app: vsmcp
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics

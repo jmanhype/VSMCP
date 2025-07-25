@@ -13,8 +13,8 @@ defmodule Vsmcp.CRDT.Supervisor do
   @impl true
   def init(_init_arg) do
     children = [
-      # Start Phoenix.PubSub for CRDT synchronization
-      {Phoenix.PubSub, name: Vsmcp.PubSub},
+      # Phoenix.PubSub is already started in Application supervisor
+      # so we don't need to start it here
       
       # Start the main ContextStore
       {Vsmcp.CRDT.ContextStore, 

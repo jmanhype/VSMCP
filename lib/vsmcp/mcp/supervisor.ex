@@ -22,7 +22,8 @@ defmodule Vsmcp.MCP.Supervisor do
       {Vsmcp.MCP.Server, [
         name: Vsmcp.MCP.Server,
         transport: :stdio,
-        port: 3000
+        port: 3000,
+        registry: Vsmcp.MCP.ToolRegistry
       ]},
       
       # MCP Client (connects to external tools)
@@ -48,6 +49,20 @@ defmodule Vsmcp.MCP.Supervisor do
         capability_registry: Vsmcp.MCP.CapabilityRegistry,
         tool_chain: Vsmcp.MCP.ToolChain
       ]},
+      
+      # LLM Adapter for System 4 Intelligence
+      {Vsmcp.MCP.Adapters.LLMAdapter, [
+        name: Vsmcp.MCP.Adapters.LLMAdapter,
+        client: Vsmcp.MCP.Client,
+        capability_registry: Vsmcp.MCP.CapabilityRegistry
+      ]},
+      
+      # LLM Feedback Loop for System 3 control
+      # TODO: Fix Publisher module reference before enabling
+      # {Vsmcp.MCP.Feedback.LLMFeedbackLoop, [
+      #   name: Vsmcp.MCP.Feedback.LLMFeedbackLoop,
+      #   auto_feedback: true
+      # ]},
       
       # Delegation patterns
       {Vsmcp.MCP.Delegation, [

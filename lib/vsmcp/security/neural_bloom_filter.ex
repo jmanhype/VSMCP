@@ -180,7 +180,8 @@ defmodule Vsmcp.Security.NeuralBloomFilter do
       :atomics.get(filter, pos) == 1
     end)
     
-    {is_present, if(is_present, 0.8, 0.0)}
+    confidence = if is_present, do: 0.8, else: 0.0
+    {is_present, confidence}
   end
   
   defp add_to_bloom_filter(data, filter) do

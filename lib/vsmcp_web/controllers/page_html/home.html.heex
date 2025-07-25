@@ -1,0 +1,296 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <%# System Status Overview %>
+  <div class="lg:col-span-2">
+    <div class="bg-black/50 border border-green-500/30 rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-6 text-green-500 flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+        VSM Subsystems Status
+      </h2>
+      
+      <div class="space-y-4">
+        <%# System 1 - Operations %>
+        <div class="border border-green-500/20 rounded-lg p-4 hover:border-green-500/40 transition-colors">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-green-500"></div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-green-400">System 1: Operations</h3>
+                <p class="text-sm text-gray-400">Primary activities and implementation</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <%= if @system_status.system1.status == :online do %>
+                <span class="flex items-center text-green-500">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></div>
+                  Online
+                </span>
+              <% else %>
+                <span class="flex items-center text-red-500">
+                  <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                  Offline
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%# System 2 - Coordination %>
+        <div class="border border-blue-500/20 rounded-lg p-4 hover:border-blue-500/40 transition-colors">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-blue-500"></div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-blue-400">System 2: Coordination</h3>
+                <p class="text-sm text-gray-400">Information and anti-oscillation</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <%= if @system_status.system2.status == :online do %>
+                <span class="flex items-center text-green-500">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></div>
+                  Online
+                </span>
+              <% else %>
+                <span class="flex items-center text-red-500">
+                  <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                  Offline
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%# System 3 - Control %>
+        <div class="border border-purple-500/20 rounded-lg p-4 hover:border-purple-500/40 transition-colors">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-purple-500"></div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-purple-400">System 3: Control</h3>
+                <p class="text-sm text-gray-400">Internal regulation and optimization</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <%= if @system_status.system3.status == :online do %>
+                <span class="flex items-center text-green-500">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></div>
+                  Online
+                </span>
+              <% else %>
+                <span class="flex items-center text-red-500">
+                  <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                  Offline
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%# System 4 - Intelligence %>
+        <div class="border border-orange-500/20 rounded-lg p-4 hover:border-orange-500/40 transition-colors">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-orange-500"></div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-orange-400">System 4: Intelligence</h3>
+                <p class="text-sm text-gray-400">Future planning and adaptation</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <%= if @system_status.system4.status == :online do %>
+                <span class="flex items-center text-green-500">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></div>
+                  Online
+                </span>
+              <% else %>
+                <span class="flex items-center text-red-500">
+                  <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                  Offline
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%# System 5 - Policy %>
+        <div class="border border-red-500/20 rounded-lg p-4 hover:border-red-500/40 transition-colors">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                <div class="w-6 h-6 rounded-full bg-red-500"></div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-red-400">System 5: Policy</h3>
+                <p class="text-sm text-gray-400">Identity and ultimate authority</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <%= if @system_status.system5.status == :online do %>
+                <span class="flex items-center text-green-500">
+                  <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></div>
+                  Online
+                </span>
+              <% else %>
+                <span class="flex items-center text-red-500">
+                  <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                  Offline
+                </span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Right Sidebar - Metrics and Quick Actions %>
+  <div class="space-y-6">
+    <%# Variety Metrics %>
+    <div class="bg-black/50 border border-green-500/30 rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4 text-green-400">Variety Metrics</h3>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-400">Current Score</span>
+            <span class="text-green-500 font-mono"><%= Float.round(@system_status.variety.score, 2) %></span>
+          </div>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-green-500 h-2 rounded-full" style={"width: #{@system_status.variety.score * 100}%"}></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-400">Requisite Variety</span>
+            <span class="text-blue-500 font-mono"><%= Float.round(@system_status.variety.requisite, 2) %></span>
+          </div>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-blue-500 h-2 rounded-full" style={"width: #{@system_status.variety.requisite * 100}%"}></div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-gray-400">Trend</span>
+          <span class={[
+            "flex items-center",
+            @system_status.variety.trend == :increasing && "text-green-500",
+            @system_status.variety.trend == :decreasing && "text-red-500",
+            @system_status.variety.trend == :stable && "text-yellow-500"
+          ]}>
+            <%= if @system_status.variety.trend == :increasing do %>
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            <% else %>
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+              </svg>
+            <% end %>
+            <%= String.capitalize(to_string(@system_status.variety.trend)) %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <%# Infrastructure Status %>
+    <div class="bg-black/50 border border-green-500/30 rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4 text-green-400">Infrastructure</h3>
+      <div class="space-y-3">
+        <%# AMQP Status %>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class={[
+              "w-2 h-2 rounded-full",
+              @system_status.amqp.status == :online && "bg-green-500 animate-pulse",
+              @system_status.amqp.status != :online && "bg-red-500"
+            ]}></div>
+            <span class="text-sm">AMQP</span>
+          </div>
+          <span class="text-xs text-gray-400">
+            <%= @system_status.amqp.channels %> channels
+          </span>
+        </div>
+
+        <%# MCP Status %>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class={[
+              "w-2 h-2 rounded-full",
+              @system_status.mcp.status == :online && "bg-blue-500 animate-pulse",
+              @system_status.mcp.status != :online && "bg-red-500"
+            ]}></div>
+            <span class="text-sm">MCP</span>
+          </div>
+          <span class="text-xs text-gray-400">
+            <%= @system_status.mcp.servers %> servers, <%= @system_status.mcp.tools %> tools
+          </span>
+        </div>
+
+        <%# CRDT Status %>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+            <span class="text-sm">CRDT</span>
+          </div>
+          <span class="text-xs text-gray-400">Active</span>
+        </div>
+
+        <%# Neural Status %>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
+            <span class="text-sm">Neural</span>
+          </div>
+          <span class="text-xs text-gray-400">Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <%# Quick Actions %>
+    <div class="bg-black/50 border border-green-500/30 rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4 text-green-400">Quick Actions</h3>
+      <div class="space-y-2">
+        <.link navigate={~p"/system3"} class="block w-full text-center py-2 px-4 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 rounded transition-colors">
+          System Diagnostics
+        </.link>
+        <.link navigate={~p"/variety"} class="block w-full text-center py-2 px-4 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 rounded transition-colors">
+          Variety Analysis
+        </.link>
+        <.link navigate={~p"/mcp"} class="block w-full text-center py-2 px-4 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/50 rounded transition-colors">
+          MCP Tools
+        </.link>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Activity Feed %>
+<div class="mt-8 bg-black/50 border border-green-500/30 rounded-lg p-6">
+  <h3 class="text-lg font-semibold mb-4 text-green-400">System Activity</h3>
+  <div class="space-y-2 font-mono text-xs text-gray-400 max-h-48 overflow-y-auto">
+    <div class="flex items-start space-x-2">
+      <span class="text-green-500">[<%= DateTime.utc_now() |> DateTime.to_string() %>]</span>
+      <span>System initialized successfully</span>
+    </div>
+    <div class="flex items-start space-x-2">
+      <span class="text-blue-500">[<%= DateTime.utc_now() |> DateTime.to_string() %>]</span>
+      <span>AMQP connections established</span>
+    </div>
+    <div class="flex items-start space-x-2">
+      <span class="text-purple-500">[<%= DateTime.utc_now() |> DateTime.to_string() %>]</span>
+      <span>MCP servers discovered: <%= @system_status.mcp.servers %></span>
+    </div>
+    <div class="flex items-start space-x-2">
+      <span class="text-orange-500">[<%= DateTime.utc_now() |> DateTime.to_string() %>]</span>
+      <span>Variety calculation completed: <%= Float.round(@system_status.variety.score, 2) %></span>
+    </div>
+  </div>
+</div>

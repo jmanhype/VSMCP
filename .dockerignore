@@ -1,0 +1,71 @@
+# Dependencies
+deps/
+_build/
+.elixir_ls/
+
+# Test files
+test/
+cover/
+
+# Development files
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+
+# Documentation
+doc/
+docs/
+*.md
+!README.md
+!LICENSE.md
+
+# Logs and temp files
+*.log
+erl_crash.dump
+*.beam
+*.ez
+
+# Environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Local configuration
+config/*.secret.exs
+config/dev.exs
+config/test.exs
+
+# Mix artifacts
+.mix/
+.hex/
+
+# Release artifacts except what we need
+rel/
+!rel/config.exs
+!rel/vm.args
+
+# Examples and scripts
+examples/
+scripts/
+
+# CI/CD
+.circleci/
+.travis.yml
+
+# Node modules (if any frontend assets)
+node_modules/
+assets/node_modules/
+
+# Dialyzer
+.dialyzer/
+.dialyzer_core*

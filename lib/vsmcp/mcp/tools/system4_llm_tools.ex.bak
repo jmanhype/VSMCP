@@ -1,0 +1,531 @@
+# Path: lib/vsmcp/mcp/tools/system4_llm_tools.ex
+defmodule Vsmcp.MCP.Tools.System4LLMTools do
+  @moduledoc """
+  System 4 LLM-powered tools for intelligence operations.
+  These tools integrate with the LLM adapter to provide advanced
+  environmental scanning and prediction capabilities.
+  """
+  
+  alias Vsmcp.MCP.{Tool, ToolResult}
+  alias Vsmcp.MCP.Adapters.LLMAdapter
+  alias Vsmcp.Systems.System4
+  
+  # Environmental Scanning Tool
+  defmodule EnvironmentalScanner do
+    @behaviour Tool
+    
+    @impl Tool
+    def info do
+      %Tool.Info{
+        name: "vsm.s4.llm.scan_environment",
+        description: "Scan environment using LLM intelligence for threats and opportunities",
+        input_schema: %{
+          type: "object",
+          properties: %{
+            "domain" => %{
+              type: "string",
+              description: "Domain to scan (market, technology, regulatory, social)",
+              enum: ["market", "technology", "regulatory", "social", "all"]
+            },
+            "context" => %{
+              type: "object",
+              description: "Additional context for scanning"
+            },
+            "depth" => %{
+              type: "string",
+              description: "Scanning depth",
+              enum: ["surface", "standard", "deep"],
+              default: "standard"
+            }
+          },
+          required: ["domain"]
+        }
+      }
+    end
+    
+    @impl Tool
+    def execute(args) do
+      domain = args["domain"]
+      context = args["context"] || %{}
+      depth = args["depth"] || "standard"
+      
+      # Enhance context with domain-specific information
+      enhanced_context = enhance_context_for_domain(domain, context)
+      
+      # Perform LLM-powered analysis
+      case LLMAdapter.analyze_environment(enhanced_context, depth: depth) do
+        {:ok, analysis} ->
+          # Feed to System 4
+          System4.scan_environment(%{
+            signals: analysis.signals,
+            source: "llm_intelligence",
+            domain: domain
+          })
+          
+          ToolResult.success(%{
+            "domain" => domain,
+            "signals" => analysis.signals,
+            "opportunities" => analysis.opportunities,
+            "threats" => analysis.threats,
+            "confidence" => analysis.consensus_level,
+            "timestamp" => DateTime.utc_now()
+          })
+          
+        {:error, reason} ->
+          ToolResult.error("Environmental scan failed", %{reason: reason})
+      end
+    end
+    
+    defp enhance_context_for_domain("market", context) do
+      Map.merge(context, %{
+        focus_areas: ["competitor analysis", "customer trends", "market dynamics"],
+        signal_types: ["price changes", "new entrants", "demand shifts"]
+      })
+    end
+    
+    defp enhance_context_for_domain("technology", context) do
+      Map.merge(context, %{
+        focus_areas: ["emerging tech", "disruptions", "adoption rates"],
+        signal_types: ["new capabilities", "obsolescence risks", "integration opportunities"]
+      })
+    end
+    
+    defp enhance_context_for_domain("regulatory", context) do
+      Map.merge(context, %{
+        focus_areas: ["compliance changes", "policy shifts", "legal precedents"],
+        signal_types: ["new regulations", "enforcement trends", "lobbying activities"]
+      })
+    end
+    
+    defp enhance_context_for_domain("social", context) do
+      Map.merge(context, %{
+        focus_areas: ["cultural shifts", "demographic changes", "social movements"],
+        signal_types: ["value changes", "behavioral patterns", "communication trends"]
+      })
+    end
+    
+    defp enhance_context_for_domain("all", context) do
+      Map.merge(context, %{
+        focus_areas: ["comprehensive analysis", "cross-domain impacts", "systemic changes"],
+        signal_types: ["all signal types", "interconnections", "cascade effects"]
+      })
+    end
+  end
+  
+  # Trend Prediction Tool
+  defmodule TrendPredictor do
+    @behaviour Tool
+    
+    @impl Tool
+    def info do
+      %Tool.Info{
+        name: "vsm.s4.llm.predict_trends",
+        description: "Predict future trends using LLM analysis",
+        input_schema: %{
+          type: "object",
+          properties: %{
+            "data_source" => %{
+              type: "string",
+              description: "Source of historical data"
+            },
+            "horizon" => %{
+              type: "string",
+              description: "Prediction horizon",
+              enum: ["1month", "3months", "6months", "1year", "5years"],
+              default: "6months"
+            },
+            "focus" => %{
+              type: "array",
+              items: %{type: "string"},
+              description: "Specific areas to focus on"
+            },
+            "confidence_threshold" => %{
+              type: "number",
+              description: "Minimum confidence for predictions",
+              minimum: 0,
+              maximum: 1,
+              default: 0.6
+            }
+          },
+          required: ["data_source"]
+        }
+      }
+    end
+    
+    @impl Tool
+    def execute(args) do
+      data_source = args["data_source"]
+      horizon = args["horizon"] || "6months"
+      focus = args["focus"] || []
+      threshold = args["confidence_threshold"] || 0.6
+      
+      # Get historical data (simplified - would integrate with data sources)
+      historical_data = gather_historical_data(data_source)
+      
+      # Predict trends
+      case LLMAdapter.predict_trends(historical_data, horizon, focus: focus) do
+        {:ok, predictions} ->
+          # Filter by confidence
+          filtered = filter_predictions_by_confidence(predictions, threshold)
+          
+          # Update System 4
+          System4.predict_future(horizon)
+          
+          ToolResult.success(%{
+            "horizon" => horizon,
+            "predictions" => filtered,
+            "total_predictions" => length(filtered),
+            "average_confidence" => calculate_average_confidence(filtered),
+            "key_trends" => extract_key_trends(filtered)
+          })
+          
+        {:error, reason} ->
+          ToolResult.error("Trend prediction failed", %{reason: reason})
+      end
+    end
+    
+    defp gather_historical_data(source) do
+      # Simplified - would connect to actual data sources
+      %{
+        source: source,
+        data_points: 100,
+        time_range: "past_year",
+        metrics: ["growth", "volatility", "momentum"]
+      }
+    end
+    
+    defp filter_predictions_by_confidence(predictions, threshold) do
+      case predictions do
+        %{trends: trends} ->
+          filtered_trends = Enum.filter(trends, fn trend ->
+            Map.get(trend, :confidence, 0) >= threshold
+          end)
+          %{predictions | trends: filtered_trends}
+          
+        _ ->
+          predictions
+      end
+    end
+    
+    defp calculate_average_confidence(predictions) do
+      trends = predictions[:trends] || []
+      if length(trends) > 0 do
+        sum = Enum.sum(Enum.map(trends, &Map.get(&1, :confidence, 0)))
+        sum / length(trends)
+      else
+        0
+      end
+    end
+    
+    defp extract_key_trends(predictions) do
+      predictions
+      |> Map.get(:trends, [])
+      |> Enum.sort_by(&Map.get(&1, :confidence, 0), :desc)
+      |> Enum.take(5)
+      |> Enum.map(&Map.get(&1, :description, ""))
+    end
+  end
+  
+  # Policy Recommendation Tool
+  defmodule PolicyAdvisor do
+    @behaviour Tool
+    
+    @impl Tool
+    def info do
+      %Tool.Info{
+        name: "vsm.s4.llm.generate_policy",
+        description: "Generate policy recommendations using LLM intelligence",
+        input_schema: %{
+          type: "object",
+          properties: %{
+            "situation" => %{
+              type: "object",
+              description: "Current situation requiring policy response"
+            },
+            "objectives" => %{
+              type: "array",
+              items: %{type: "string"},
+              description: "Policy objectives to achieve"
+            },
+            "constraints" => %{
+              type: "array",
+              items: %{type: "string"},
+              description: "Constraints to consider"
+            },
+            "urgency" => %{
+              type: "string",
+              enum: ["low", "medium", "high", "critical"],
+              default: "medium"
+            }
+          },
+          required: ["situation"]
+        }
+      }
+    end
+    
+    @impl Tool
+    def execute(args) do
+      situation = args["situation"]
+      objectives = args["objectives"] || []
+      constraints = args["constraints"] || []
+      urgency = args["urgency"] || "medium"
+      
+      # Enhance situation with context
+      enhanced_situation = Map.merge(situation, %{
+        objectives: objectives,
+        urgency: urgency
+      })
+      
+      # Generate recommendation
+      case LLMAdapter.generate_policy_recommendation(enhanced_situation, constraints) do
+        {:ok, recommendation} ->
+          # Create actionable result
+          actionable = make_recommendation_actionable(recommendation, urgency)
+          
+          ToolResult.success(%{
+            "policy" => actionable.summary,
+            "implementation_steps" => actionable.steps,
+            "expected_outcomes" => actionable.expected_outcomes,
+            "risks" => actionable.risks,
+            "timeline" => generate_timeline(urgency),
+            "success_metrics" => actionable.success_metrics || []
+          })
+          
+        {:error, reason} ->
+          ToolResult.error("Policy generation failed", %{reason: reason})
+      end
+    end
+    
+    defp make_recommendation_actionable(recommendation, urgency) do
+      Map.merge(recommendation, %{
+        priority: urgency_to_priority(urgency),
+        resource_requirements: estimate_resources(recommendation),
+        implementation_phases: break_into_phases(recommendation.steps || [])
+      })
+    end
+    
+    defp urgency_to_priority("critical"), do: :immediate
+    defp urgency_to_priority("high"), do: :high
+    defp urgency_to_priority("medium"), do: :normal
+    defp urgency_to_priority("low"), do: :low
+    
+    defp generate_timeline("critical"), do: "1-7 days"
+    defp generate_timeline("high"), do: "1-4 weeks"
+    defp generate_timeline("medium"), do: "1-3 months"
+    defp generate_timeline("low"), do: "3-6 months"
+    
+    defp estimate_resources(recommendation) do
+      # Simple estimation based on steps
+      step_count = length(recommendation[:steps] || [])
+      %{
+        personnel: "#{step_count * 2}-#{step_count * 3} people",
+        budget: "Medium",
+        time: "#{step_count} weeks"
+      }
+    end
+    
+    defp break_into_phases(steps) do
+      steps
+      |> Enum.chunk_every(3)
+      |> Enum.with_index(1)
+      |> Enum.map(fn {phase_steps, index} ->
+        %{
+          phase: index,
+          name: "Phase #{index}",
+          steps: phase_steps
+        }
+      end)
+    end
+  end
+  
+  # Variety Gap Analyzer Tool
+  defmodule VarietyGapAnalyzer do
+    @behaviour Tool
+    
+    @impl Tool
+    def info do
+      %Tool.Info{
+        name: "vsm.s4.llm.analyze_variety_gap",
+        description: "Analyze variety gap between system and environment using LLM",
+        input_schema: %{
+          type: "object",
+          properties: %{
+            "system_capabilities" => %{
+              type: "array",
+              items: %{type: "string"},
+              description: "Current system capabilities"
+            },
+            "environmental_demands" => %{
+              type: "array",
+              items: %{type: "string"},
+              description: "Environmental variety demands"
+            },
+            "performance_data" => %{
+              type: "object",
+              description: "System performance metrics"
+            },
+            "analysis_depth" => %{
+              type: "string",
+              enum: ["quick", "standard", "comprehensive"],
+              default: "standard"
+            }
+          },
+          required: ["system_capabilities", "environmental_demands"]
+        }
+      }
+    end
+    
+    @impl Tool
+    def execute(args) do
+      system_caps = args["system_capabilities"]
+      env_demands = args["environmental_demands"]
+      performance = args["performance_data"] || %{}
+      depth = args["analysis_depth"] || "standard"
+      
+      # Prepare states for analysis
+      system_state = %{
+        capabilities: system_caps,
+        performance: performance,
+        variety_count: length(system_caps)
+      }
+      
+      environment_state = %{
+        demands: env_demands,
+        variety_count: length(env_demands),
+        complexity: estimate_complexity(env_demands)
+      }
+      
+      # Analyze gap
+      case LLMAdapter.analyze_variety_gap(system_state, environment_state) do
+        {:ok, analysis} ->
+          # Generate acquisition plan
+          acquisition_plan = generate_acquisition_plan(analysis)
+          
+          ToolResult.success(%{
+            "variety_gap" => analysis.gap_analysis,
+            "missing_capabilities" => extract_missing_capabilities(analysis),
+            "acquisition_priorities" => analysis.priority_actions,
+            "acquisition_plan" => acquisition_plan,
+            "estimated_effort" => estimate_acquisition_effort(analysis)
+          })
+          
+        {:error, reason} ->
+          ToolResult.error("Variety gap analysis failed", %{reason: reason})
+      end
+    end
+    
+    defp estimate_complexity(demands) do
+      unique_domains = demands
+      |> Enum.map(&String.split(&1, " "))
+      |> Enum.map(&List.first/1)
+      |> Enum.uniq()
+      |> length()
+      
+      cond do
+        unique_domains > 10 -> :high
+        unique_domains > 5 -> :medium
+        true -> :low
+      end
+    end
+    
+    defp extract_missing_capabilities(analysis) do
+      gaps = analysis.gap_analysis[:gaps] || []
+      
+      Enum.map(gaps, fn gap ->
+        %{
+          capability: gap[:description] || "Unknown",
+          impact: gap[:impact] || :medium,
+          acquisition_method: suggest_acquisition_method(gap)
+        }
+      end)
+    end
+    
+    defp suggest_acquisition_method(gap) do
+      # Suggest how to acquire the capability
+      cond do
+        String.contains?(gap[:description] || "", ["tool", "automation"]) ->
+          "MCP tool integration"
+        String.contains?(gap[:description] || "", ["skill", "knowledge"]) ->
+          "Training or hiring"
+        String.contains?(gap[:description] || "", ["process", "workflow"]) ->
+          "Process improvement"
+        true ->
+          "Capability development"
+      end
+    end
+    
+    defp generate_acquisition_plan(analysis) do
+      recommendations = analysis[:recommendations] || []
+      
+      %{
+        phases: [
+          %{
+            phase: 1,
+            name: "Immediate acquisitions",
+            focus: "Critical gaps",
+            duration: "2 weeks",
+            actions: Enum.take(recommendations, 3)
+          },
+          %{
+            phase: 2,
+            name: "Short-term improvements",
+            focus: "High-impact capabilities",
+            duration: "1-2 months",
+            actions: Enum.slice(recommendations, 3, 3)
+          },
+          %{
+            phase: 3,
+            name: "Strategic enhancements",
+            focus: "Long-term adaptability",
+            duration: "3-6 months",
+            actions: Enum.drop(recommendations, 6)
+          }
+        ]
+      }
+    end
+    
+    defp estimate_acquisition_effort(analysis) do
+      gap_count = length(analysis.gap_analysis[:gaps] || [])
+      
+      %{
+        total_gaps: gap_count,
+        estimated_time: "#{gap_count * 2}-#{gap_count * 4} weeks",
+        complexity: estimate_overall_complexity(analysis),
+        resources_needed: estimate_resources_needed(gap_count)
+      }
+    end
+    
+    defp estimate_overall_complexity(analysis) do
+      magnitude = analysis.gap_analysis[:magnitude] || :medium
+      
+      case magnitude do
+        :high -> "Complex - significant variety mismatch"
+        :medium -> "Moderate - manageable gaps"
+        :low -> "Simple - minor adjustments needed"
+        _ -> "Unknown"
+      end
+    end
+    
+    defp estimate_resources_needed(gap_count) do
+      %{
+        mcp_servers: "#{div(gap_count, 3) + 1} new MCP integrations",
+        development_hours: "#{gap_count * 20}-#{gap_count * 40} hours",
+        team_size: "#{div(gap_count, 5) + 2} people"
+      }
+    end
+  end
+  
+  # Register all tools
+  def register_all do
+    tools = [
+      EnvironmentalScanner,
+      TrendPredictor,
+      PolicyAdvisor,
+      VarietyGapAnalyzer
+    ]
+    
+    Enum.map(tools, fn tool_module ->
+      Tool.Registry.register(tool_module)
+    end)
+  end
+end

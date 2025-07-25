@@ -154,6 +154,18 @@ defmodule Vsmcp.AMQP.ConnectionWorker do
   end
 
   @impl true
+  def handle_info({:basic_consume_ok, %{consumer_tag: _tag}}, state) do
+    # Ignore basic_consume_ok messages - they're handled by the consumer processes
+    {:noreply, state}
+  end
+  
+  @impl true
+  def handle_info(_msg, state) do
+    # Ignore any other messages
+    {:noreply, state}
+  end
+
+  @impl true
   def terminate(_reason, %{connection: conn}) when not is_nil(conn) do
     AMQP.Connection.close(conn)
   catch
@@ -168,7 +180,6 @@ defmodule Vsmcp.AMQP.ConnectionWorker do
     connection_params = 
       opts
       |> Keyword.take([:host, :port, :username, :password, :virtual_host, :heartbeat, :connection_timeout])
-      |> Enum.into(%{})
     
     case AMQP.Connection.open(connection_params) do
       {:ok, conn} ->

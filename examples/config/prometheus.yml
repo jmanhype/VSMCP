@@ -1,0 +1,69 @@
+# Prometheus configuration for VSMCP monitoring
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'vsmcp-monitor'
+    environment: 'production'
+
+# Alerting configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+# Load rules
+rule_files:
+  - "alerts/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # VSMCP application metrics
+  - job_name: 'vsmcp'
+    static_configs:
+    - targets: ['vsmcp:9568']
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: instance
+      regex: '([^:]+):\d+'
+      replacement: '${1}'
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'vsmcp_.*'
+      action: keep
+
+  # RabbitMQ metrics
+  - job_name: 'rabbitmq'
+    static_configs:
+    - targets: ['rabbitmq:15692']
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'rabbitmq_.*'
+      action: keep
+
+  # PostgreSQL metrics (using postgres_exporter)
+  - job_name: 'postgresql'
+    static_configs:
+    - targets: ['postgres-exporter:9187']
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'pg_.*'
+      action: keep
+
+  # Node exporter for system metrics
+  - job_name: 'node'
+    static_configs:
+    - targets: ['node-exporter:9100']
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'node_.*'
+      action: keep
+
+# Remote write configuration (optional)
+# remote_write:
+#   - url: "https://prometheus-remote-endpoint.example.com/api/v1/write"
+#     basic_auth:
+#       username: 'username'
+#       password: 'password'

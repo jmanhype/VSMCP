@@ -1,0 +1,40 @@
+## Name of the node
+-name vsmcp_dev@127.0.0.1
+
+## Cookie for distributed erlang
+-setcookie vsmcp_dev_cookie
+
+## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
+-heart
+
+## Enable kernel poll and a few async threads
++K true
++A 128
+
+## Increase number of concurrent ports/sockets
+-env ERL_MAX_PORTS 65536
+
+## Tweak GC to run more often
+-env ERL_FULLSWEEP_AFTER 10
+
+## Enable SMP
+-smp enable
+
+## Start the Elixir shell
+-user elixir
+
+## Set scheduler bind type for better performance
++sbt db
+
+## Increase distribution buffer size
++zdbbl 32768
+
+## Enable time warp mode for better time handling
++C multi_time_warp
+
+## Increase max processes
++P 1000000
+
+## Development specific settings
+-env ERL_CRASH_DUMP_SECONDS 10
+-env ERL_CRASH_DUMP ./log/erl_crash.dump

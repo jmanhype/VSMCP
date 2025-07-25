@@ -1,0 +1,1642 @@
+Compiling 2 files (.ex)
+    warning: variable "opts" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 18 │   def init(opts) do
+    │            ~~~~
+    │
+    └─ lib/vsmcp/interfaces/telegram_bot.ex:18:12: Vsmcp.Interfaces.TelegramBot.init/1
+
+     warning: variable "chat_id" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 155 │   def handle_info({:operation_result, %{chat_id: chat_id, context: context} = result}, state) when not is_nil(context) do
+     │                                                  ~~~~~~~
+     │
+     └─ lib/vsmcp/interfaces/telegram_bot.ex:155:50: Vsmcp.Interfaces.TelegramBot.handle_info/2
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 165 │     Logger.warn("Operation result without context, cannot send response to chat #{chat_id}")
+     │            ~
+     │
+     └─ lib/vsmcp/interfaces/telegram_bot.ex:165:12: Vsmcp.Interfaces.TelegramBot.handle_info/2
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 163 │   def handle_info({:operation_result, %{chat_id: chat_id} = result}, state) do
+     │                                                             ~~~~~~
+     │
+     └─ lib/vsmcp/interfaces/telegram_bot.ex:163:61: Vsmcp.Interfaces.TelegramBot.handle_info/2
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 324 │   defp calculate_user_growth_rate(state) do
+     │                                   ~~~~~
+     │
+     └─ lib/vsmcp/interfaces/telegram_bot.ex:324:35: Vsmcp.Interfaces.TelegramBot.calculate_user_growth_rate/1
+
+     warning: function format_help/0 is unused
+     │
+ 377 │   defp format_help do
+     │        ~
+     │
+     └─ lib/vsmcp/interfaces/telegram_bot.ex:377:8: Vsmcp.Interfaces.TelegramBot (module)
+
+    warning: unused alias System4
+    │
+ 11 │   alias Vsmcp.Systems.{System1, System4}
+    │   ~
+    │
+    └─ lib/vsmcp/interfaces/telegram_bot.ex:11:3
+
+    warning: function format_status/1 required by behaviour GenServer was implemented as "defp" but should have been "def" (in module Vsmcp.Interfaces.TelegramBot)
+    │
+  1 │ defmodule Vsmcp.Interfaces.TelegramBot do
+    │ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/interfaces/telegram_bot.ex:1: Vsmcp.Interfaces.TelegramBot (module)
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 222 │     Logger.warn("Variety gap alert received: #{gap_size}")
+     │            ~
+     │
+     └─ lib/vsmcp/variety/autonomous_manager.ex:222:12: Vsmcp.Variety.AutonomousManager.handle_info/2
+
+     warning: variable "new_size" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 550 │     {:ok, new_size} = scale_workers({:scale_up, 3})
+     │           ~~~~~~~~
+     │
+     └─ lib/vsmcp/variety/autonomous_manager.ex:550:11: Vsmcp.Variety.AutonomousManager.handle_critical_gap/2
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 582 │     Logger.warn("High variety gap detected: #{metrics.gap_ratio}")
+     │            ~
+     │
+     └─ lib/vsmcp/variety/autonomous_manager.ex:582:12: Vsmcp.Variety.AutonomousManager.handle_high_gap/2
+
+     warning: Vsmcp.MCP.ServerManager.discover_and_install/1 is undefined or private
+     │
+ 387 │          :ok <- ServerManager.discover_and_install(capability.name) do
+     │                               ~
+     │
+     └─ lib/vsmcp/variety/autonomous_manager.ex:387:31: Vsmcp.Variety.AutonomousManager.install_mcp_capability/2
+
+     warning: variable "prompt" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 206 │       prompt = prompt <> get_system_role(system) <> "\n\n"
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:206:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.generate_prompt/2
+
+     warning: variable "prompt" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 214 │       prompt = prompt <> "\n\n" <> get_format_instructions(template)
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:214:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.generate_prompt/2
+
+     warning: variable "issues" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 425 │       issues = ["Prompt too short" | issues]
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:425:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.validate_prompt/1
+
+     warning: variable "issues" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 429 │       issues = ["Prompt too long" | issues]
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:429:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.validate_prompt/1
+
+     warning: variable "issues" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 435 │       issues = ["Missing VSM terminology" | issues]
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:435:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.validate_prompt/1
+
+     warning: variable "issues" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 440 │       issues = ["No clear question or instruction" | issues]
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/prompts/vsm_prompt_engineering.ex:440:7: Vsmcp.MCP.Prompts.VSMPromptEngineering.validate_prompt/1
+
+    warning: variable "rule" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 26 │       {:ok, rule} ->
+    │             ~
+    │
+    └─ lib/vsmcp_web/controllers/system2_controller.ex:26:13: VsmcpWeb.System2Controller.create_rule/2
+
+    warning: Vsmcp.Systems.System2.add_coordination_rule/1 is undefined or private
+    │
+ 25 │     case System2.add_coordination_rule(rule_params) do
+    │                  ~
+    │
+    └─ lib/vsmcp_web/controllers/system2_controller.ex:25:18: VsmcpWeb.System2Controller.create_rule/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system2/rules"
+    │
+ 29 │         |> redirect(to: ~p"/system2/rules")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system2_controller.ex:29: VsmcpWeb.System2Controller.create_rule/2
+
+    warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 46 │       {:ok, result} ->
+    │             ~
+    │
+    └─ lib/vsmcp_web/controllers/system3_controller.ex:46:13: VsmcpWeb.System3Controller.control_action/2
+
+    warning: Vsmcp.Systems.System3.optimize_subsystem/2 is undefined or private. Did you mean:
+
+          * optimize/3
+
+    │
+ 32 │     case System3.optimize_subsystem(target, params) do
+    │                  ~
+    │
+    └─ lib/vsmcp_web/controllers/system3_controller.ex:32:18: VsmcpWeb.System3Controller.optimize/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system3"
+    │
+ 49 │         |> redirect(to: ~p"/system3")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system3_controller.ex:49: VsmcpWeb.System3Controller.control_action/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system3"
+    │
+ 53 │         |> redirect(to: ~p"/system3")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system3_controller.ex:53: VsmcpWeb.System3Controller.control_action/2
+
+     warning: variable "system" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 129 │   defp setup_system_queues(channel, system, queue_config) do
+     │                                     ~~~~~~
+     │
+     └─ lib/vsmcp/amqp/channel_manager.ex:129:37: Vsmcp.AMQP.ChannelManager.setup_system_queues/3
+
+     warning: default values for the optional arguments in hide/2 are never used
+     │
+ 458 │   defp hide(js \\ %JS{}, selector) do
+     │        ~
+     │
+     └─ lib/vsmcp_web/components/core_components.ex:458:8: VsmcpWeb.CoreComponents (module)
+
+    warning: unused import VsmcpWeb.Gettext
+    │
+ 12 │   import VsmcpWeb.Gettext
+    │   ~
+    │
+    └─ lib/vsmcp_web/components/core_components.ex:12:3
+
+     warning: undefined attribute "kind" for component VsmcpWeb.CoreComponents.flash/1
+     │
+ 207 │     <.flash kind={:error} flash={@flash} />
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/components/core_components.ex:207: (file)
+
+     warning: undefined attribute "kind" for component VsmcpWeb.CoreComponents.flash/1
+     │
+ 206 │     <.flash kind={:info} flash={@flash} />
+     │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/components/core_components.ex:206: (file)
+
+    warning: variable "reason" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 70 │       {:error, reason} = error ->
+    │                ~
+    │
+    └─ lib/vsmcp/mcp/tool_registry.ex:70:16: Vsmcp.MCP.ToolRegistry.handle_call/3
+
+     warning: variable "args" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 170 │   defp validate_args(args, nil), do: :ok
+     │                      ~~~~
+     │
+     └─ lib/vsmcp/mcp/tool_registry.ex:170:22: Vsmcp.MCP.ToolRegistry.validate_args/2
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 90 │       Logger.warn("Significant variety gap detected: Op=#{operational}, Env=#{environmental}")
+    │              ~
+    │
+    └─ lib/vsmcp/core/variety_calculator.ex:90:14: Vsmcp.Core.VarietyCalculator.handle_info/2
+
+    warning: variable "req" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 79 │   defp handle_request(%Protocol.Request{method: "initialize", id: id} = req, state) do
+    │                                                                         ~~~
+    │
+    └─ lib/vsmcp/mcp/server.ex:79:73: Vsmcp.MCP.Server.handle_request/2
+
+    warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 79 │   defp handle_request(%Protocol.Request{method: "initialize", id: id} = req, state) do
+    │                                                                              ~~~~~
+    │
+    └─ lib/vsmcp/mcp/server.ex:79:78: Vsmcp.MCP.Server.handle_request/2
+
+    warning: unused alias System2
+    │
+ 12 │   alias Vsmcp.Systems.{System1, System2, System3, System4, System5}
+    │   ~
+    │
+    └─ lib/vsmcp/mcp/server.ex:12:3
+
+    warning: unused alias System3
+    │
+ 12 │   alias Vsmcp.Systems.{System1, System2, System3, System4, System5}
+    │   ~
+    │
+    └─ lib/vsmcp/mcp/server.ex:12:3
+
+    warning: unused alias System5
+    │
+ 12 │   alias Vsmcp.Systems.{System1, System2, System3, System4, System5}
+    │   ~
+    │
+    └─ lib/vsmcp/mcp/server.ex:12:3
+
+     warning: variable "gap" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 751 │   defp suggest_implementation(gap) do
+     │                               ~~~
+     │
+     └─ lib/vsmcp/mcp/adapters/llm_adapter.ex:751:31: Vsmcp.MCP.Adapters.LLMAdapter.suggest_implementation/1
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+  4 │       <%# VSM Logo and Title %>
+    │       ~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:4: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 20 │       <%# System Status Indicators %>
+    │       ~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:20: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 37 │         <%# User Menu %>
+    │         ~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:37: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 49 │     <%# VSM Navigation %>
+    │     ~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:49: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 111 │     <%# Flash Messages %>
+     │     ~
+     │
+     └─ lib/vsmcp_web/components/layouts/app.html.heex:111: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 114 │     <%# Main Content Area with Cybernetic Border %>
+     │     ~
+     │
+     └─ lib/vsmcp_web/components/layouts/app.html.heex:114: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 14 │     <%# Cybernetic VSM Styling %>
+    │     ~
+    │
+    └─ lib/vsmcp_web/components/layouts/root.html.heex:14: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 92 │     <%# VSM Neural Network Background Animation %>
+    │     ~
+    │
+    └─ lib/vsmcp_web/components/layouts/root.html.heex:92: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 102 │         <%# Animated neural connections %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/components/layouts/root.html.heex:102: (file)
+
+    warning: no route path for VsmcpWeb.Router matches "/system1"
+    │
+ 58 │       <.nav_link href={~p"/system1"} active={String.starts_with?(@conn.request_path, "/system1")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:58: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/system2"
+    │
+ 63 │       <.nav_link href={~p"/system2"} active={String.starts_with?(@conn.request_path, "/system2")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:63: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/system3"
+    │
+ 68 │       <.nav_link href={~p"/system3"} active={String.starts_with?(@conn.request_path, "/system3")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:68: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/system4"
+    │
+ 73 │       <.nav_link href={~p"/system4"} active={String.starts_with?(@conn.request_path, "/system4")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:73: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/system5"
+    │
+ 78 │       <.nav_link href={~p"/system5"} active={String.starts_with?(@conn.request_path, "/system5")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:78: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/variety"
+    │
+ 85 │       <.nav_link href={~p"/variety"} active={String.starts_with?(@conn.request_path, "/variety")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:85: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/mcp"
+    │
+ 92 │       <.nav_link href={~p"/mcp"} active={String.starts_with?(@conn.request_path, "/mcp")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:92: VsmcpWeb.Layouts.app/1
+
+    warning: no route path for VsmcpWeb.Router matches "/consciousness"
+    │
+ 99 │       <.nav_link href={~p"/consciousness"} active={String.starts_with?(@conn.request_path, "/consciousness")}>
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/components/layouts/app.html.heex:99: VsmcpWeb.Layouts.app/1
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 646 │   defp extract_article_ids(result, context) do
+     │                            ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/adapters/system4_adapter.ex:646:28: Vsmcp.MCP.Adapters.System4Adapter.extract_article_ids/2
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 651 │   defp convert_sentiment_to_signal(result, context) do
+     │                                    ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/adapters/system4_adapter.ex:651:36: Vsmcp.MCP.Adapters.System4Adapter.convert_sentiment_to_signal/2
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 421 │     result = case feedback.priority do
+     │     ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:421:5: Vsmcp.MCP.Feedback.LLMFeedbackLoop.process_feedback_item/2
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 416 │   defp process_feedback_item(feedback, state) do
+     │                                        ~~~~~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:416:40: Vsmcp.MCP.Feedback.LLMFeedbackLoop.process_feedback_item/2
+
+     warning: variable "adjustments" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 533 │       adjustments = adjustments ++ Enum.map(analysis.risks, &risk_to_adjustment/1)
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:533:7: Vsmcp.MCP.Feedback.LLMFeedbackLoop.derive_adjustments_from_analysis/1
+
+     warning: variable "adjustments" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 537 │       adjustments = adjustments ++ Enum.map(analysis.improvements, &improvement_to_adjustment/1)
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:537:7: Vsmcp.MCP.Feedback.LLMFeedbackLoop.derive_adjustments_from_analysis/1
+
+     warning: variable "adjustments" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+     │
+ 541 │       adjustments = adjustments ++ Enum.map(analysis.recommendations, &recommendation_to_adjustment/1)
+     │       ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:541:7: Vsmcp.MCP.Feedback.LLMFeedbackLoop.derive_adjustments_from_analysis/1
+
+    warning: unused alias LLMAdapter
+    │
+ 15 │   alias Vsmcp.MCP.Adapters.LLMAdapter
+    │   ~
+    │
+    └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:15:3
+
+    warning: unused alias System4
+    │
+ 14 │   alias Vsmcp.Systems.{System3, System4}
+    │   ~
+    │
+    └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:14:3
+
+    warning: Vsmcp.AMQP.Publisher.subscribe/1 is undefined (module Vsmcp.AMQP.Publisher is not available or is yet to be defined)
+    │
+ 51 │     :ok = Publisher.subscribe("intelligence.insights")
+    │                     ~
+    │
+    └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:51:21: Vsmcp.MCP.Feedback.LLMFeedbackLoop.init/1
+
+     warning: Vsmcp.AMQP.Publisher.publish/3 is undefined (module Vsmcp.AMQP.Publisher is not available or is yet to be defined)
+     │
+ 441 │     Publisher.publish("algedonic", feedback.content, %{
+     │               ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:441:15: Vsmcp.MCP.Feedback.LLMFeedbackLoop.send_urgent_feedback/1
+
+     warning: Vsmcp.AMQP.Publisher.publish/3 is undefined (module Vsmcp.AMQP.Publisher is not available or is yet to be defined)
+     │
+ 453 │     Publisher.publish("command", feedback.content, %{
+     │               ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:453:15: Vsmcp.MCP.Feedback.LLMFeedbackLoop.send_priority_feedback/1
+
+     warning: Vsmcp.AMQP.Publisher.publish/3 is undefined (module Vsmcp.AMQP.Publisher is not available or is yet to be defined)
+     │
+ 464 │     Publisher.publish("intelligence", feedback.content, %{
+     │               ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:464:15: Vsmcp.MCP.Feedback.LLMFeedbackLoop.send_normal_feedback/1
+
+     warning: Vsmcp.Systems.System3.adjust_control/1 is undefined or private
+     │
+ 476 │     System3.adjust_control(adjustment)
+     │             ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:476:13: Vsmcp.MCP.Feedback.LLMFeedbackLoop.send_to_system3/1
+
+     warning: Vsmcp.Systems.System3.adjust_control/1 is undefined or private
+     │
+ 480 │     System3.adjust_control(adjustment)
+     │             ~
+     │
+     └─ lib/vsmcp/mcp/feedback/llm_feedback_loop.ex:480:13: Vsmcp.MCP.Feedback.LLMFeedbackLoop.send_to_system3/1
+
+     warning: Vsmcp.Core.VarietyCalculator.calculate_system_variety/0 is undefined or private. Did you mean:
+
+           * calculate_environmental_variety/0
+           * calculate_operational_variety/0
+
+     │
+ 181 │     {:ok, vsm_variety} = VarietyCalculator.calculate_system_variety()
+     │                                            ~
+     │
+     └─ lib/vsmcp/mcp/capability_registry.ex:181:44: Vsmcp.MCP.CapabilityRegistry.handle_call/3
+
+warning: defining a Gettext backend by calling
+
+    use Gettext, otp_app: ...
+
+is deprecated. To define a backend, call:
+
+    use Gettext.Backend, otp_app: :my_app
+
+Then, instead of importing your backend, call this in your module:
+
+    use Gettext, backend: MyApp.Gettext
+
+  lib/vsmcp_web/gettext.ex:23: VsmcpWeb.Gettext (module)
+
+     warning: variable "params" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 158 │   defp perform_variety_analysis(scope, params) do
+     │                                        ~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/variety_controller.ex:158:40: VsmcpWeb.VarietyController.perform_variety_analysis/2
+
+     warning: variable "analysis_result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 175 │   defp generate_recommendations(analysis_result) do
+     │                                 ~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/variety_controller.ex:175:33: VsmcpWeb.VarietyController.generate_recommendations/1
+
+     warning: variable "params" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 307 │   defp automatic_rebalance(params) do
+     │                            ~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/variety_controller.ex:307:28: VsmcpWeb.VarietyController.automatic_rebalance/1
+
+    warning: unused alias AutonomousManager
+    │
+  5 │   alias Vsmcp.Variety.AutonomousManager
+    │   ~
+    │
+    └─ lib/vsmcp_web/controllers/variety_controller.ex:5:3
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 91 │       Logger.warn("Threat detected: #{inspect(threat_info)} with confidence #{confidence}")
+    │              ~
+    │
+    └─ lib/vsmcp/security/neural_bloom_filter.ex:91:14: Vsmcp.Security.NeuralBloomFilter.handle_call/3
+
+    warning: variable "new_state" is unused (there is a variable with the same name in the context, use the pin operator (^) to match on it or prefix this variable with underscore if it is not meant to be used)
+    │
+ 94 │       new_state = update_in(new_state.recent_threats, fn queue ->
+    │       ~
+    │
+    └─ lib/vsmcp/security/neural_bloom_filter.ex:94:7: Vsmcp.Security.NeuralBloomFilter.handle_call/3
+
+     warning: variable "features" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 389 │     features = extract_threat_features(data)
+     │     ~~~~~~~~
+     │
+     └─ lib/vsmcp/security/neural_bloom_filter.ex:389:5: Vsmcp.Security.NeuralBloomFilter.train_neural_network/4
+
+    warning: no route path for VsmcpWeb.Router matches "/system3"
+    │
+ 31 │       <.link navigate={~p"/system3"} class="px-6 py-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/50 rounded transition-colors">
+    │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/controllers/error_html/404.html.heex:31: VsmcpWeb.ErrorHTML."404"/1
+
+     warning: variable "params" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 217 │   defp discover_capabilities(query, params) do
+     │                                     ~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/mcp_controller.ex:217:37: VsmcpWeb.MCPController.discover_capabilities/2
+
+    warning: unused alias CapabilityRegistry
+    │
+  4 │   alias Vsmcp.MCP.{ServerManager, ToolRegistry, CapabilityRegistry}
+    │   ~
+    │
+    └─ lib/vsmcp_web/controllers/mcp_controller.ex:4:3
+
+    warning: no route path for VsmcpWeb.Router matches "/mcp/servers"
+    │
+ 71 │         |> redirect(to: ~p"/mcp/servers")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/mcp_controller.ex:71: VsmcpWeb.MCPController.server_details/2
+
+    warning: no route path for VsmcpWeb.Router matches "/mcp/tools"
+    │
+ 82 │         |> redirect(to: ~p"/mcp/tools")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/mcp_controller.ex:82: VsmcpWeb.MCPController.tool_details/2
+
+     warning: variable "token" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 204 │   defp add_security_filters(query_params, token) do
+     │                                           ~~~~~
+     │
+     └─ lib/vsmcp/security/integration.ex:204:43: Vsmcp.Security.Integration.add_security_filters/2
+
+    warning: variable "policy" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 33 │       {:ok, policy} ->
+    │             ~
+    │
+    └─ lib/vsmcp_web/controllers/system5_controller.ex:33:13: VsmcpWeb.System5Controller.create_policy/2
+
+    warning: Vsmcp.Systems.System5.create_policy/1 is undefined or private. Did you mean:
+
+          * get_policy/1
+
+    │
+ 32 │     case System5.create_policy(policy_params) do
+    │                  ~
+    │
+    └─ lib/vsmcp_web/controllers/system5_controller.ex:32:18: VsmcpWeb.System5Controller.create_policy/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system5/policies"
+    │
+ 36 │         |> redirect(to: ~p"/system5/policies")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system5_controller.ex:36: VsmcpWeb.System5Controller.create_policy/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system5/policies"
+    │
+ 40 │         |> redirect(to: ~p"/system5/policies")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system5_controller.ex:40: VsmcpWeb.System5Controller.create_policy/2
+
+     warning: variable "default_servers" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 176 │     default_servers = [
+     │     ~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/release.ex:176:5: Vsmcp.Release.create_default_mcp_servers/0
+
+     warning: variable "default_configs" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 206 │     default_configs = [
+     │     ~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/release.ex:206:5: Vsmcp.Release.create_default_vsm_configs/0
+
+    warning: Vsmcp.Systems.System1.execute_operation/2 is undefined or private. Did you mean:
+
+          * execute/1
+
+    │
+ 31 │     case System1.execute_operation(command, params) do
+    │                  ~
+    │
+    └─ lib/vsmcp_web/controllers/system1_controller.ex:31:18: VsmcpWeb.System1Controller.execute/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system1"
+    │
+ 26 │         |> redirect(to: ~p"/system1")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system1_controller.ex:26: VsmcpWeb.System1Controller.show/2
+
+    warning: VsmcpWeb.McpController.init/1 is undefined (module VsmcpWeb.McpController is not available or is yet to be defined). Did you mean:
+
+          * VsmcpWeb.MCPController.init/1
+
+    │
+ 46 │     get "/mcp/tools", McpController, :list_tools
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/router.ex:46: VsmcpWeb.Router.__checks__/0
+
+    warning: VsmcpWeb.McpController.init/1 is undefined (module VsmcpWeb.McpController is not available or is yet to be defined). Did you mean:
+
+          * VsmcpWeb.MCPController.init/1
+
+    │
+ 47 │     post "/mcp/tools/call", McpController, :call_tool
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp_web/router.ex:47: VsmcpWeb.Router.__checks__/0
+
+     warning: variable "server_pid" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 259 │     {:ok, server_pid} = GenServer.start_link(Server, [
+     │           ~~~~~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:259:11: Vsmcp.MCP.Delegation.create_vsm_mcp_server/2
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 251 │   defp create_vsm_mcp_server(sub_vsm, state) do
+     │                                       ~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:251:39: Vsmcp.MCP.Delegation.create_vsm_mcp_server/2
+
+     warning: variable "capability" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 362 │   defp satisfies_constraints?(capability, constraints) do
+     │                               ~~~~~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:362:31: Vsmcp.MCP.Delegation.satisfies_constraints?/2
+
+     warning: variable "constraints" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 362 │   defp satisfies_constraints?(capability, constraints) do
+     │                                           ~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:362:43: Vsmcp.MCP.Delegation.satisfies_constraints?/2
+
+     warning: variable "tool_def" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 372 │     tool_def = %{
+     │     ~~~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:372:5: Vsmcp.MCP.Delegation.create_delegation/4
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 385 │   defp create_delegation_handler(capability_name, source_vsm_id, state) do
+     │                                                                  ~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:385:66: Vsmcp.MCP.Delegation.create_delegation_handler/3
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 492 │   defp update_request_metrics(state) do
+     │                               ~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:492:31: Vsmcp.MCP.Delegation.update_request_metrics/1
+
+     warning: variable "state" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 496 │   defp update_vsm_metrics(vsm_id, metric_type, state) do
+     │                                                ~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:496:48: Vsmcp.MCP.Delegation.update_vsm_metrics/3
+
+     warning: variable "params" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 500 │   defp log_delegation_execution(delegation, params, result) do
+     │                                             ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:500:45: Vsmcp.MCP.Delegation.log_delegation_execution/3
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 500 │   defp log_delegation_execution(delegation, params, result) do
+     │                                                     ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/delegation.ex:500:53: Vsmcp.MCP.Delegation.log_delegation_execution/3
+
+     warning: variable "duration" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 177 │     duration = measurements.duration
+     │     ~~~~~~~~
+     │
+     └─ lib/vsmcp_web/telemetry.ex:177:5: VsmcpWeb.Telemetry.handle_endpoint_stop/4
+
+     warning: variable "method" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 179 │     method = metadata.conn.method
+     │     ~~~~~~
+     │
+     └─ lib/vsmcp_web/telemetry.ex:179:5: VsmcpWeb.Telemetry.handle_endpoint_stop/4
+
+     warning: variable "measurements" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 202 │   def handle_liveview_mount(_event_name, measurements, metadata, _config) do
+     │                                          ~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/telemetry.ex:202:42: VsmcpWeb.Telemetry.handle_liveview_mount/4
+
+     warning: variable "total_available" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 271 │   defp calculate_allocations(unit_resources, total_available, total_required) do
+     │                                              ~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/amqp/nervous_system.ex:271:46: Vsmcp.AMQP.NervousSystem.calculate_allocations/3
+
+     warning: variable "units_providing" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 277 │     units_providing = 
+     │     ~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/amqp/nervous_system.ex:277:5: Vsmcp.AMQP.NervousSystem.calculate_allocations/3
+
+     warning: variable "reason" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 144 │       {:error, reason} = error ->
+     │                ~
+     │
+     └─ lib/vsmcp/z3n/mria_wrapper.ex:144:16: Vsmcp.Z3n.MriaWrapper.handle_call/3
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 263 │       Logger.warn("Unhealthy nodes detected: #{inspect(state.nodes -- healthy_nodes)}")
+     │              ~
+     │
+     └─ lib/vsmcp/z3n/mria_wrapper.ex:263:14: Vsmcp.Z3n.MriaWrapper.handle_info/2
+
+     warning: variable "ring" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 338 │   defp get_shard_nodes(shard_id, ring, nodes) do
+     │                                  ~~~~
+     │
+     └─ lib/vsmcp/z3n/mria_wrapper.ex:338:34: Vsmcp.Z3n.MriaWrapper.get_shard_nodes/3
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+  2 │   <%# System Status Overview %>
+    │   ~
+    │
+    └─ lib/vsmcp_web/controllers/page_html/home.html.heex:2: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 13 │         <%# System 1 - Operations %>
+    │         ~
+    │
+    └─ lib/vsmcp_web/controllers/page_html/home.html.heex:13: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 41 │         <%# System 2 - Coordination %>
+    │         ~
+    │
+    └─ lib/vsmcp_web/controllers/page_html/home.html.heex:41: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 69 │         <%# System 3 - Control %>
+    │         ~
+    │
+    └─ lib/vsmcp_web/controllers/page_html/home.html.heex:69: (file)
+
+    warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+    │
+ 97 │         <%# System 4 - Intelligence %>
+    │         ~
+    │
+    └─ lib/vsmcp_web/controllers/page_html/home.html.heex:97: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 125 │         <%# System 5 - Policy %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:125: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 156 │   <%# Right Sidebar - Metrics and Quick Actions %>
+     │   ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:156: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 158 │     <%# Variety Metrics %>
+     │     ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:158: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 203 │     <%# Infrastructure Status %>
+     │     ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:203: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 207 │         <%# AMQP Status %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:207: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 222 │         <%# MCP Status %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:222: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 237 │         <%# CRDT Status %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:237: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 246 │         <%# Neural Status %>
+     │         ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:246: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 257 │     <%# Quick Actions %>
+     │     ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:257: (file)
+
+     warning: <%# is deprecated, use <%!-- or add a space between <% and # instead
+     │
+ 275 │ <%# Activity Feed %>
+     │ ~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:275: (file)
+
+     warning: no route path for VsmcpWeb.Router matches "/system3"
+     │
+ 261 │         <.link navigate={~p"/system3"} class="block w-full text-center py-2 px-4 bg-green-500/20 hover:bg-green-500/30 border border-green-500/50 rounded transition-colors">
+     │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:261: VsmcpWeb.PageHTML.home/1
+
+     warning: no route path for VsmcpWeb.Router matches "/variety"
+     │
+ 264 │         <.link navigate={~p"/variety"} class="block w-full text-center py-2 px-4 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 rounded transition-colors">
+     │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:264: VsmcpWeb.PageHTML.home/1
+
+     warning: no route path for VsmcpWeb.Router matches "/mcp"
+     │
+ 267 │         <.link navigate={~p"/mcp"} class="block w-full text-center py-2 px-4 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/50 rounded transition-colors">
+     │         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/page_html/home.html.heex:267: VsmcpWeb.PageHTML.home/1
+
+     warning: variable "channel_type" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 227 │   defp check_channel_health(channel_type) do
+     │                             ~~~~~~~~~~~~
+     │
+     └─ lib/vsmcp/amqp/channel_monitor.ex:227:29: Vsmcp.AMQP.ChannelMonitor.check_channel_health/1
+
+    warning: module attribute @impl was not set for function handle_info/2 callback (specified in GenServer). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 31 │   def handle_info({:telegram_update, %{message: %{text: text, from: user}}}, state) do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/interfaces/telegram_bot_correct.ex:31: Vsmcp.Interfaces.TelegramBotCorrect (module)
+
+     warning: WebSockex.stop/1 is undefined or private
+     │
+ 345 │     WebSockex.stop(pid)
+     │               ~
+     │
+     └─ lib/vsmcp/mcp/client.ex:345:15: Vsmcp.MCP.Connection.close/1
+
+     warning: variable "fun" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 128 │   def handle_call({:with_connection, fun}, _from, %{connection: nil} = state) do
+     │                                      ~~~
+     │
+     └─ lib/vsmcp/amqp/connection_pool.ex:128:38: Vsmcp.AMQP.ConnectionWorker.handle_call/3
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 151 │     Logger.warn("AMQP connection lost: #{inspect(reason)}")
+     │            ~
+     │
+     └─ lib/vsmcp/amqp/connection_pool.ex:151:12: Vsmcp.AMQP.ConnectionWorker.handle_info/2
+
+    warning: AMQP.Connection.status/1 is undefined or private
+    │
+ 61 │       case AMQP.Connection.status(conn) do
+    │                            ~
+    │
+    └─ lib/vsmcp/amqp/connection_pool.ex:61:28: Vsmcp.AMQP.ConnectionPool.health_check/0
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 53 │     Logger.warn("Security threat detected: #{inspect(threat_data)}")
+    │            ~
+    │
+    └─ lib/vsmcp/security/event_handler.ex:53:12: Vsmcp.Security.EventHandler.handle_cast/2
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 118 │       Logger.warn("Critical variety gap - considering security policy adjustments")
+     │              ~
+     │
+     └─ lib/vsmcp/security/event_handler.ex:118:14: Vsmcp.Security.EventHandler.handle_cast/2
+
+     warning: variable "params" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 142 │   defp perform_environmental_scan(scope, params) do
+     │                                          ~~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/system4_controller.ex:142:42: VsmcpWeb.System4Controller.perform_environmental_scan/2
+
+     warning: variable "scope" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 142 │   defp perform_environmental_scan(scope, params) do
+     │                                   ~~~~~
+     │
+     └─ lib/vsmcp_web/controllers/system4_controller.ex:142:35: VsmcpWeb.System4Controller.perform_environmental_scan/2
+
+    warning: Vsmcp.Systems.System4.propose_adaptation/1 is undefined or private
+    │
+ 45 │     case System4.propose_adaptation(adaptation_params) do
+    │                  ~
+    │
+    └─ lib/vsmcp_web/controllers/system4_controller.ex:45:18: VsmcpWeb.System4Controller.adapt/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system4"
+    │
+ 49 │         |> redirect(to: ~p"/system4")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system4_controller.ex:49: VsmcpWeb.System4Controller.adapt/2
+
+    warning: no route path for VsmcpWeb.Router matches "/system4"
+    │
+ 53 │         |> redirect(to: ~p"/system4")
+    │                           ~
+    │
+    └─ lib/vsmcp_web/controllers/system4_controller.ex:53: VsmcpWeb.System4Controller.adapt/2
+
+    warning: function start_link/3 required by behaviour :ranch_protocol is not implemented (in module Vsmcp.MCP.TCPHandler)
+    │
+  2 │ defmodule Vsmcp.MCP.TCPHandler do
+    │ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/mcp/tcp_handler.ex:2: Vsmcp.MCP.TCPHandler (module)
+
+    warning: :ranch.accept_ack/1 is undefined or private
+    │
+ 18 │     :ok = :ranch.accept_ack(ref)
+    │                  ~
+    │
+    └─ lib/vsmcp/mcp/tcp_handler.ex:18:18: Vsmcp.MCP.TCPHandler.init/1
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 11 │   use Vsmcp.AMQP.Consumers.BaseConsumer, system: :system3
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:11: Vsmcp.AMQP.Consumers.System3Consumer.handle_info/2
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 11 │   use Vsmcp.AMQP.Consumers.BaseConsumer, system: :system3
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:11: Vsmcp.AMQP.Consumers.System3Consumer.handle_algedonic/2
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 11 │   use Vsmcp.AMQP.Consumers.BaseConsumer, system: :system3
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:11: Vsmcp.AMQP.Consumers.System3Consumer.route_message/3
+
+    warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+    │
+ 77 │         Logger.warn("System 3 received unknown command type: #{command.type}")
+    │                ~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:77:16: Vsmcp.AMQP.Consumers.System3Consumer.handle_command/2
+
+    warning: variable "metadata" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 63 │   def handle_command(command, metadata) do
+    │                               ~~~~~~~~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:63:31: Vsmcp.AMQP.Consumers.System3Consumer.handle_command/2
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 107 │         Logger.warn("System 3 audit warning: #{inspect(details)}")
+     │                ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:107:16: Vsmcp.AMQP.Consumers.System3Consumer.handle_audit/2
+
+     warning: Logger.warn/1 is deprecated. Use Logger.warning/2 instead
+     │
+ 119 │     Logger.warn("System 3 received algedonic signal: #{signal.type} (intensity: #{signal.intensity})")
+     │            ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:119:12: Vsmcp.AMQP.Consumers.System3Consumer.handle_algedonic/2
+
+    warning: Vsmcp.Systems.System3.store_audit/1 is undefined or private
+    │
+ 88 │     System3.store_audit(audit)
+    │             ~
+    │
+    └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:88:13: Vsmcp.AMQP.Consumers.System3Consumer.handle_audit/2
+
+     warning: Vsmcp.Systems.System3.log_algedonic_signal/1 is undefined or private
+     │
+ 133 │         System3.log_algedonic_signal(signal)
+     │                 ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:133:17: Vsmcp.AMQP.Consumers.System3Consumer.handle_algedonic/2
+
+     warning: Vsmcp.Systems.System3.collect_audit_data/2 is undefined or private
+     │
+ 145 │     audit_data = System3.collect_audit_data(target, scope)
+     │                          ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:145:26: Vsmcp.AMQP.Consumers.System3Consumer.perform_audit/2
+
+     warning: Vsmcp.Systems.System3.check_policy_compliance/2 is undefined or private
+     │
+ 172 │     compliance_result = System3.check_policy_compliance(policy, target)
+     │                                 ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:172:33: Vsmcp.AMQP.Consumers.System3Consumer.check_compliance/2
+
+     warning: Vsmcp.Systems.System3.investigate_anomaly/1 is undefined or private
+     │
+ 189 │     investigation_result = System3.investigate_anomaly(anomaly_data)
+     │                                    ~
+     │
+     └─ lib/vsmcp/amqp/consumers/system3_consumer.ex:189:36: Vsmcp.AMQP.Consumers.System3Consumer.investigate_anomaly/1
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 399 │   defp prepare_prediction(result, context) do
+     │                           ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/tool_chain.ex:399:27: Vsmcp.MCP.ToolChain.prepare_prediction/2
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 412 │   defp extract_bottlenecks(result, context) do
+     │                            ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/tool_chain.ex:412:28: Vsmcp.MCP.ToolChain.extract_bottlenecks/2
+
+     warning: variable "result" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 452 │   defp prepare_coordination(result, context) do
+     │                             ~~~~~~
+     │
+     └─ lib/vsmcp/mcp/tool_chain.ex:452:29: Vsmcp.MCP.ToolChain.prepare_coordination/2
+
+     warning: Vsmcp.CRDT.Sync.PubSubSync.register_crdt/4 is undefined or private. Did you mean:
+
+           * register_crdt/3
+
+     │
+ 167 │         :ok = PubSubSync.register_crdt(state.sync, crdt_id, crdt_type, crdt)
+     │                          ~
+     │
+     └─ lib/vsmcp/crdt/context_store.ex:167:26: Vsmcp.CRDT.ContextStore.handle_call/3
+
+     warning: Vsmcp.CRDT.Sync.PubSubSync.register_crdt/4 is undefined or private. Did you mean:
+
+           * register_crdt/3
+
+     │
+ 267 │           PubSubSync.register_crdt(state.sync, crdt_id, crdt_type, crdt)
+     │                      ~
+     │
+     └─ lib/vsmcp/crdt/context_store.ex:267:22: Vsmcp.CRDT.ContextStore.load_existing_crdts/1
+
+     warning: Vsmcp.CRDT.Sync.PubSubSync.propagate_delta/3 is undefined or private. Did you mean:
+
+           * propagate_delta/2
+
+     │
+ 211 │             PubSubSync.propagate_delta(state.sync, crdt_id, delta)
+     │                        ~
+     │
+     └─ lib/vsmcp/crdt/context_store.ex:211:24: Vsmcp.CRDT.ContextStore.handle_call/3
+
+     warning: Vsmcp.CRDT.Sync.PubSubSync.sync_now/1 is undefined or private. Did you mean:
+
+           * sync_now/0
+
+     │
+ 245 │     PubSubSync.sync_now(state.sync)
+     │                ~
+     │
+     └─ lib/vsmcp/crdt/context_store.ex:245:16: Vsmcp.CRDT.ContextStore.handle_cast/2
+
+    warning: Vsmcp.VSM.VarietyAnalyzer.analyze_system_variety/0 is undefined (module Vsmcp.VSM.VarietyAnalyzer is not available or is yet to be defined)
+    │
+ 63 │     system_variety = VarietyAnalyzer.analyze_system_variety()
+    │                                      ~
+    │
+    └─ lib/vsmcp/cli.ex:63:38: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.VSM.VarietyAnalyzer.analyze_environment_variety/0 is undefined (module Vsmcp.VSM.VarietyAnalyzer is not available or is yet to be defined)
+    │
+ 64 │     env_variety = VarietyAnalyzer.analyze_environment_variety()
+    │                                   ~
+    │
+    └─ lib/vsmcp/cli.ex:64:35: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.VSM.VarietyAnalyzer.identify_variety_gaps/2 is undefined (module Vsmcp.VSM.VarietyAnalyzer is not available or is yet to be defined)
+    │
+ 65 │     gaps = VarietyAnalyzer.identify_variety_gaps(system_variety, env_variety)
+    │                            ~
+    │
+    └─ lib/vsmcp/cli.ex:65:28: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.VSM.VarietyAnalyzer.recommend_capabilities/1 is undefined (module Vsmcp.VSM.VarietyAnalyzer is not available or is yet to be defined)
+    │
+ 66 │     recommendations = VarietyAnalyzer.recommend_capabilities(gaps)
+    │                                       ~
+    │
+    └─ lib/vsmcp/cli.ex:66:39: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.VSM.CapabilityRegistry.list_capabilities/0 is undefined (module Vsmcp.VSM.CapabilityRegistry is not available or is yet to be defined)
+    │
+ 67 │     mcp_capabilities = CapabilityRegistry.list_capabilities()
+    │                                           ~
+    │
+    └─ lib/vsmcp/cli.ex:67:43: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.VSM.VarietyAnalyzer.calculate_coverage/2 is undefined (module Vsmcp.VSM.VarietyAnalyzer is not available or is yet to be defined)
+    │
+ 78 │         coverage_percentage: VarietyAnalyzer.calculate_coverage(system_variety, env_variety),
+    │                                              ~
+    │
+    └─ lib/vsmcp/cli.ex:78:46: Vsmcp.CLI.variety_report/1
+
+    warning: Vsmcp.MCP.ServerRegistry.list_servers/0 is undefined (module Vsmcp.MCP.ServerRegistry is not available or is yet to be defined)
+    │
+ 90 │     servers = ServerRegistry.list_servers()
+    │                              ~
+    │
+    └─ lib/vsmcp/cli.ex:90:30: Vsmcp.CLI.list_mcp_capabilities/0
+
+     warning: Vsmcp.MCP.ServerRegistry.list_servers/0 is undefined (module Vsmcp.MCP.ServerRegistry is not available or is yet to be defined)
+     │
+ 333 │     servers = ServerRegistry.list_servers()
+     │                              ~
+     │
+     └─ lib/vsmcp/cli.ex:333:30: Vsmcp.CLI.test_all_mcp_connections/0
+
+    warning: Vsmcp.MCP.CapabilityManager.get_capabilities/1 is undefined (module Vsmcp.MCP.CapabilityManager is not available or is yet to be defined)
+    │
+ 93 │       caps = CapabilityManager.get_capabilities(server.id)
+    │                                ~
+    │
+    └─ lib/vsmcp/cli.ex:93:32: Vsmcp.CLI.list_mcp_capabilities/0
+
+     warning: Vsmcp.MCP.Installer.install_server/1 is undefined (module Vsmcp.MCP.Installer is not available or is yet to be defined)
+     │
+ 116 │     case Installer.install_server(server_name) do
+     │                    ~
+     │
+     └─ lib/vsmcp/cli.ex:116:20: Vsmcp.CLI.install_mcp_server/1
+
+     warning: Vsmcp.MCP.Installer.remove_server/1 is undefined (module Vsmcp.MCP.Installer is not available or is yet to be defined)
+     │
+ 129 │     case Installer.remove_server(server_name) do
+     │                    ~
+     │
+     └─ lib/vsmcp/cli.ex:129:20: Vsmcp.CLI.remove_mcp_server/1
+
+     warning: Vsmcp.MCP.Discovery.discover_servers/0 is undefined (module Vsmcp.MCP.Discovery is not available or is yet to be defined)
+     │
+ 142 │     servers = Discovery.discover_servers()
+     │                         ~
+     │
+     └─ lib/vsmcp/cli.ex:142:25: Vsmcp.CLI.discover_mcp_servers/0
+
+     warning: Vsmcp.Telemetry.Metrics.get_system_metrics/0 is undefined (module Vsmcp.Telemetry.Metrics is not available or is yet to be defined)
+     │
+ 173 │       system: Metrics.get_system_metrics(),
+     │                       ~
+     │
+     └─ lib/vsmcp/cli.ex:173:23: Vsmcp.CLI.get_metrics/0
+
+     warning: Vsmcp.Telemetry.Metrics.get_application_metrics/0 is undefined (module Vsmcp.Telemetry.Metrics is not available or is yet to be defined)
+     │
+ 174 │       application: Metrics.get_application_metrics(),
+     │                            ~
+     │
+     └─ lib/vsmcp/cli.ex:174:28: Vsmcp.CLI.get_metrics/0
+
+     warning: Vsmcp.Telemetry.Metrics.get_mcp_metrics/0 is undefined (module Vsmcp.Telemetry.Metrics is not available or is yet to be defined)
+     │
+ 175 │       mcp: Metrics.get_mcp_metrics(),
+     │                    ~
+     │
+     └─ lib/vsmcp/cli.ex:175:20: Vsmcp.CLI.get_metrics/0
+
+     warning: Vsmcp.Telemetry.Metrics.get_vsm_metrics/0 is undefined (module Vsmcp.Telemetry.Metrics is not available or is yet to be defined)
+     │
+ 176 │       vsm: Metrics.get_vsm_metrics()
+     │                    ~
+     │
+     └─ lib/vsmcp/cli.ex:176:20: Vsmcp.CLI.get_metrics/0
+
+     warning: Vsmcp.MCP.ServerRegistry.get_server_by_name/1 is undefined (module Vsmcp.MCP.ServerRegistry is not available or is yet to be defined)
+     │
+ 303 │     case ServerRegistry.get_server_by_name(server_name) do
+     │                         ~
+     │
+     └─ lib/vsmcp/cli.ex:303:25: Vsmcp.CLI.test_single_mcp_connection/1
+
+     warning: Vsmcp.MCP.ConnectionTester.test_server/1 is undefined (module Vsmcp.MCP.ConnectionTester is not available or is yet to be defined)
+     │
+ 308 │         case ConnectionTester.test_server(server.id) do
+     │                               ~
+     │
+     └─ lib/vsmcp/cli.ex:308:31: Vsmcp.CLI.test_single_mcp_connection/1
+
+     warning: Vsmcp.MCP.ConnectionTester.test_server/1 is undefined (module Vsmcp.MCP.ConnectionTester is not available or is yet to be defined)
+     │
+ 336 │       case ConnectionTester.test_server(server.id) do
+     │                             ~
+     │
+     └─ lib/vsmcp/cli.ex:336:29: Vsmcp.CLI.test_all_mcp_connections/0
+
+     warning: Vsmcp.MCP.ConnectionTester.test_capabilities/1 is undefined (module Vsmcp.MCP.ConnectionTester is not available or is yet to be defined)
+     │
+ 310 │             capabilities = ConnectionTester.test_capabilities(server.id)
+     │                                             ~
+     │
+     └─ lib/vsmcp/cli.ex:310:45: Vsmcp.CLI.test_single_mcp_connection/1
+
+Generated vsmcp app
+[error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
+[warning] Not able to start file_system worker, reason: {:error, :fs_inotify_bootstrap_error}
+[warning] Could not start Phoenix live-reload because we cannot listen to the file system.
+You don't need to worry! This is an optional feature used during development to
+refresh your browser when you save files and it does not affect production.
+
+[error] Error when calling MFA defined by measurement: Vsmcp.Telemetry :emit_variety_metrics []
+Class=:exit
+Reason={:noproc,
+ {GenServer, :call, [Vsmcp.Core.VarietyCalculator, :current_state, 5000]}}
+Stacktrace=[
+  {GenServer, :call, 3, [file: ~c"lib/gen_server.ex", line: 1121]},
+  {Vsmcp.Telemetry, :emit_variety_metrics, 0,
+   [file: ~c"lib/vsmcp/telemetry.ex", line: 76]},
+  {:telemetry_poller, :make_measurement, 1,
+   [
+     file: ~c"/home/batmanosama/viable-systems/VSMCP/deps/telemetry_poller/src/telemetry_poller.erl",
+     line: 474
+   ]},
+  {:telemetry_poller, :"-make_measurements_and_filter_misbehaving/1-lc$^0/1-0-",
+   1,
+   [
+     file: ~c"/home/batmanosama/viable-systems/VSMCP/deps/telemetry_poller/src/telemetry_poller.erl",
+     line: 470
+   ]},
+  {:telemetry_poller, :handle_info, 2,
+   [
+     file: ~c"/home/batmanosama/viable-systems/VSMCP/deps/telemetry_poller/src/telemetry_poller.erl",
+     line: 495
+   ]},
+  {:gen_server, :try_handle_info, 3, [file: ~c"gen_server.erl", line: 1095]},
+  {:gen_server, :handle_msg, 6, [file: ~c"gen_server.erl", line: 1183]},
+  {:proc_lib, :init_p_do_apply, 3, [file: ~c"proc_lib.erl", line: 241]}
+]
+
+[info] Running VsmcpWeb.Endpoint with cowboy 2.13.0 at 127.0.0.1:4000 (http)
+[info] Access VsmcpWeb.Endpoint at http://localhost:4000
+[watch] build finished, watching for changes...
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Registered tool: vsm.s1.execute
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Successfully connected to RabbitMQ at localhost:5672
+[info] Registered tool: vsm.s1.register_capability
+[info] Registered tool: vsm.s2.coordinate
+[info] Registered tool: vsm.s3.audit
+[info] Registered tool: vsm.s4.scan_environment
+[info] Registered tool: vsm.s4.predict
+[info] Registered tool: vsm.s5.set_policy
+[info] Registered tool: vsm.variety.calculate
+[info] Registered tool: vsm.variety.acquire
+[info] Starting Telegram bot interface with token configured
+[info] Starting Telegram BotHandler with circuit breaker
+[info] Starting Telegram poller with token configured
+[debug] Declared exchange: vsm.command
+[debug] Declared exchange: vsm.intel
+[debug] Declared exchange: vsm.audit
+[debug] Declared exchange: vsm.algedonic
+[debug] Declared exchange: vsm.horizontal
+[debug] Subscribed to vsm.system3.command with tag amq.ctag-g9jN5sc046-iAckotW4oHA
+[debug] Subscribed to vsm.system3.audit.all with tag amq.ctag-AoqGHfLFfunqg-nWBFDHfw
+[debug] Subscribed to vsm.system3.algedonic with tag amq.ctag-MZR1CJw2hjzVjXBc2OZXRQ
+[info] system3 consumer setup complete
+[debug] Declared queue: vsm.system1.command
+[debug] Declared queue: vsm.system1.audit
+[debug] Declared queue: vsm.system1.algedonic
+[debug] Declared queue: vsm.system1.horizontal
+[debug] Declared queue: vsm.system2.command
+[debug] Declared queue: vsm.system2.audit
+[debug] Declared queue: vsm.system2.algedonic
+[debug] Declared queue: vsm.system3.command
+[debug] Declared queue: vsm.system3.audit.all
+[debug] Declared queue: vsm.system3.algedonic
+[debug] Declared queue: vsm.system4.command
+[debug] Declared queue: vsm.system4.intel
+[debug] Declared queue: vsm.system4.algedonic
+[debug] Declared queue: vsm.system5.command
+[debug] Declared queue: vsm.system5.intel
+[debug] Declared queue: vsm.system5.algedonic
+[debug] Bound vsm.system1.command to vsm.command with key: system1.#
+[debug] Bound vsm.system2.command to vsm.command with key: system2.#
+[debug] Bound vsm.system3.command to vsm.command with key: system3.#
+[debug] Bound vsm.system4.command to vsm.command with key: system4.#
+[debug] Bound vsm.system5.command to vsm.command with key: system5.#
+[debug] Bound vsm.system1.audit to vsm.audit with key: 
+[debug] Bound vsm.system2.audit to vsm.audit with key: 
+[debug] Bound vsm.system3.audit.all to vsm.audit with key: 
+[debug] Bound vsm.system1.algedonic to vsm.algedonic with key: system1
+[debug] Bound vsm.system2.algedonic to vsm.algedonic with key: system2
+[debug] Bound vsm.system3.algedonic to vsm.algedonic with key: system3
+[debug] Bound vsm.system4.algedonic to vsm.algedonic with key: system4
+[debug] Bound vsm.system5.algedonic to vsm.algedonic with key: system5
+[debug] Bound vsm.system1.horizontal to vsm.horizontal with key: *.*.*
+[debug] Bound vsm.system4.intel to vsm.intel with key: *.*.*
+[debug] Bound vsm.system5.intel to vsm.intel with key: *.*.urgent
+[info] VSM AMQP infrastructure setup complete
+
+Rebuilding...
+
+Done in 298ms.
+[error] Error when calling MFA defined by measurement: VsmcpWeb.Telemetry :emit_connection_metrics []
+Class=:error
+Reason=:function_clause
+Stacktrace=[
+  {Access, :get,
+   [
+     {:state, {:local, VsmcpWeb.Endpoint}, :one_for_one,
+      {[
+         #Reference<0.262017133.3121610753.155145>,
+         #Reference<0.262017133.3121610753.155144>,
+         {:terminator, Phoenix.LiveView.Socket},
+         {:terminator, Phoenix.LiveReloader.Socket},
+         Plug.Cowboy.Drainer,
+         {:ranch_embedded_sup, VsmcpWeb.Endpoint.HTTP},
+         Phoenix.LiveView.Socket,
+         Phoenix.LiveReloader.Socket,
+         Phoenix.Config
+       ],
+       %{
+         Phoenix.Config => {:child, #PID<0.655.0>, Phoenix.Config,
+          {Phoenix.Config, :start_link,
+           [
+             {VsmcpWeb.Endpoint,
+              [
+                endpoint_id: "Pd/LpxtC7dWgqpsxmTUPjQ",
+                pubsub_server: Vsmcp.PubSub,
+                otp_app: :vsmcp,
+                adapter: Phoenix.Endpoint.Cowboy2Adapter,
+                cache_static_manifest: nil,
+                https: false,
+                reloadable_apps: nil,
+                reloadable_compilers: [:gettext, :elixir, :app],
+                static_url: nil,
+                cache_manifest_skip_vsn: false,
+                force_watchers: false,
+                url: [path: "/", host: "localhost"],
+                render_errors: [
+                  view: VsmcpWeb.ErrorView,
+                  accepts: ["html"],
+                  formats: [html: VsmcpWeb.ErrorHTML, json: VsmcpWeb.ErrorJSON],
+                  layout: false
+                ],
+                pubsub_server: Vsmcp.PubSub,
+                live_view: [signing_salt: "vsmcp_live_view_salt"],
+                http: [ip: {127, 0, 0, 1}, port: 4000],
+                check_origin: false,
+                code_reloader: true,
+                debug_errors: true,
+                secret_key_base: "vsmcp_dev_secret_key_base_at_least_64_bytes_long_for_security_reasons_change_in_prod",
+                watchers: [
+                  esbuild: {Esbuild, :install_and_run,
+                   [:default, ["--sourcemap=inline", ...]]},
+                  tailwind: {Tailwind, :install_and_run, [:default, [...]]}
+                ],
+                live_reload: [
+                  patterns: [~r/priv\/static\/.*(js|css|png|jpeg|jpg|gif|svg)$/,
+                   ~r/priv\/gettext\/.*(po)$/,
+                   ~r/lib\/vsmcp_web\/(controllers|live|components)\/.*(ex|heex)$/]
+                ]
+              ],
+              [
+                endpoint_id: "Pd/LpxtC7dWgqpsxmTUPjQ",
+                pubsub_server: Vsmcp.PubSub,
+                otp_app: :vsmcp,
+                code_reloader: false,
+                debug_errors: false,
+                render_errors: [
+                  view: VsmcpWeb.ErrorView,
+                  accepts: ["html"],
+                  layout: false
+                ],
+                adapter: Phoenix.Endpoint.Cowboy2Adapter,
+                cache_static_manifest: nil,
+                check_origin: true,
+                http: false,
+                https: false,
+                reloadable_apps: nil,
+                reloadable_compilers: [:gettext, :elixir, :app],
+                secret_key_base: nil,
+                static_url: nil,
+                url: [host: "localhost", path: "/"],
+                cache_manifest_skip_vsn: false,
+                watchers: [],
+                force_watchers: false
+              ], [name: VsmcpWeb.Endpoint.Config]}
+           ]}, :permanent, false, 5000, :worker, [Phoenix.Config]},
+         Phoenix.LiveReloader.Socket => {:child, #PID<0.656.0>,
+          Phoenix.LiveReloader.Socket,
+          {Phoenix.Socket.PoolSupervisor, :start_link,
+           [{VsmcpWeb.Endpoint, Phoenix.LiveReloader.Socket, 16}]}, :permanent,
+          false, :infinity, :supervisor, [Phoenix.Socket.PoolSupervisor]},
+         Phoenix.LiveView.Socket => {:child, #PID<0.673.0>,
+          Phoenix.LiveView.Socket,
+          {Phoenix.Socket.PoolSupervisor, :start_link,
+           [{VsmcpWeb.Endpoint, Phoenix.LiveView.Socket, 16}]}, :permanent,
+          false, :infinity, :supervisor, [Phoenix.Socket.PoolSupervisor]},
+         Plug.Cowboy.Drainer => {:child, #PID<0.895.0>, Plug.Cowboy.Drainer,
+          {Plug.Cowboy.Drainer, :start_link, [[refs: [VsmcpWeb.Endpoint.HTTP]]]},
+          :permanent, false, 5000, :worker, [Plug.Cowboy.Drainer]},
+         #Reference<0.262017133.3121610753.155144> => {:child, #PID<0.898.0>,
+          #Reference<0.262017133.3121610753.155144>,
+          {Phoenix.Endpoint.Watcher, :start_link,
+           [
+             esbuild: {Esbuild, :install_and_run,
+              [:default, ["--sourcemap=inline", "--watch"]]}
+           ]}, :transient, false, 5000, :worker, [Phoenix.Endpoint.Watcher]},
+         #Reference<0.262017133.3121610753.155145> => {:child, #PID<0.899.0>,
+          #Reference<0.262017133.3121610753.155145>,
+          {Phoenix.Endpoint.Watcher, :start_link,
+           [tailwind: {Tailwind, :install_and_run, [:default, ["--watch"]]}]},
+          :transient, false, 5000, :worker, [Phoenix.Endpoint.Watcher]},
+         {:ranch_embedded_sup, VsmcpWeb.Endpoint.HTTP} => {:child,
+          #PID<0.690.0>, {:ranch_embedded_sup, VsmcpWeb.Endpoint.HTTP},
+          {Phoenix.Endpoint.Cowboy2Adapter, :start_link,
+           [
+             :http,
+             VsmcpWeb.Endpoint,
+             {:ranch_embedded_sup, :start_link,
+              [
+                VsmcpWeb.Endpoint.HTTP,
+                :ranch_tcp,
+                %{
+                  num_acceptors: 100,
+                  socket_opts: [ip: {127, 0, 0, 1}, port: 4000],
+                  max_connections: 16384
+                },
+                :cowboy_clear,
+                %{
+                  env: %{
+                    dispatch: [
+                      {:_, [],
+                       [
+                         {:_, [], Plug.Cowboy.Handler,
+                          {Phoenix.Endpoint.SyncCodeReloadPlug,
+                           {VsmcpWeb.Endpoint, ...}}}
+                       ]}
+                    ]
+                  },
+                  stream_handlers: [:cowboy_telemetry_h, :cowboy_stream_h]
+                }
+              ]}
+           ]}, :permanent, false, :infinity, :supervisor,
+          [Phoenix.Endpoint.Cowboy2Adapter]},
+         {:terminator, Phoenix.LiveReloader.Socket} => {:child, #PID<0.896.0>,
+          {:terminator, Phoenix.LiveReloader.Socket},
+          {Phoenix.Socket.PoolDrainer, :start_link,
+           [
+             {VsmcpWeb.Endpoint, Phoenix.LiveReloader.Socket,
+              [log: false, endpoint: VsmcpWeb.Endpoint, drainer: []]}
+           ]}, :permanent, false, 30000, :worker, [Phoenix.Socket.PoolDrainer]},
+         {:terminator, Phoenix.LiveView.Socket} => {:child, #PID<0.897.0>,
+          {:terminator, Phoenix.LiveView.Socket},
+          {Phoenix.Socket.PoolDrainer, :start_link,
+           [
+             {VsmcpWeb.Endpoint, Phoenix.LiveView.Socket,
+              [
+                endpoint: VsmcpWeb.Endpoint,
+                websocket: [
+                  connect_info: [
+                    session: [
+                      store: :cookie,
+                      key: "_vsmcp_key",
+                      signing_salt: "vsmcp_cookie_signing_salt",
+                      same_site: "Lax"
+                    ]
+                  ]
+                ],
+                drainer: []
+              ]}
+           ]}, :permanent, false, 30000, :worker, [Phoenix.Socket.PoolDrainer]}
+       }}, :undefined, 3, 5, [], 0, :never, Phoenix.Endpoint.Supervisor,
+      {:vsmcp, VsmcpWeb.Endpoint, []}},
+     :conn_tracker,
+     nil
+   ], [file: ~c"lib/access.ex", line: 320]},
+  {Kernel, :get_in, 2, [file: ~c"lib/kernel.ex", line: 2832]},
+  {VsmcpWeb.Telemetry, :emit_connection_metrics, 0,
+   [file: ~c"lib/vsmcp_web/telemetry.ex", line: 122]},
+  {:telemetry_poller, :make_measurement, 1,
+   [
+     file: ~c"/home/batmanosama/viable-systems/VSMCP/deps/telemetry_poller/src/telemetry_poller.erl",
+     line: 474
+   ]},
+  {:telemetry_poller, :"-make_measurements_and_filter_misbehaving/1-lc$^ (truncated)
+[warning] Unhealthy nodes detected: [:nonode@nohost]
+[debug] Performing periodic variety check
+[warning] Significant variety gap detected: Op=100000, Env=11390625
+[warning] Variety gap alert received: 11290625
+[debug] Received message: {:variety_gap, 11290625}
+[debug] Performing periodic variety check
+[warning] Significant variety gap detected: Op=100000, Env=11390625
+[warning] Variety gap alert received: 11290625
+[debug] Received message: {:variety_gap, 11290625}
+test
