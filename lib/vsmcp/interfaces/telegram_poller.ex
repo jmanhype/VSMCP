@@ -188,9 +188,23 @@ defmodule Vsmcp.Interfaces.TelegramPoller do
   defp handle_message(text, context) do
     Logger.info("Handling message: #{text}")
     
-    # Forward to TelegramBot GenServer
+    # Forward to TelegramBot GenServer with properly structured data
+    message = context.update["message"]
     telegram_update = %{
-      message: context.update["message"]
+      message: %{
+        text: message["text"],
+        from: %{
+          id: get_in(message, ["from", "id"]),
+          username: get_in(message, ["from", "username"]),
+          first_name: get_in(message, ["from", "first_name"]),
+          is_bot: get_in(message, ["from", "is_bot"]) || false
+        },
+        chat: %{
+          id: get_in(message, ["chat", "id"]),
+          type: get_in(message, ["chat", "type"]),
+          username: get_in(message, ["chat", "username"])
+        }
+      }
     }
     
     send(Vsmcp.Interfaces.TelegramBot, {:telegram_update, telegram_update})

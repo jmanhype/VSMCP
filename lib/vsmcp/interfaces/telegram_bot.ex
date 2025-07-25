@@ -51,8 +51,12 @@ defmodule Vsmcp.Interfaces.TelegramBot do
     }
     
     # 2. Send to S1 as operational command (not to S4!)
-    case NervousSystem.send_command(:telegram_unit, :system1, operation) do
-      :ok ->
+    # Execute through System1 directly to increment metrics
+    coordination = %{
+      operations: [operation]
+    }
+    case System1.execute(coordination) do
+      results when is_list(results) ->
         # Track pattern for S4 environmental scanning
         new_state = update_message_patterns(state, text)
         
@@ -87,10 +91,11 @@ defmodule Vsmcp.Interfaces.TelegramBot do
   @impl true
   def handle_info({:telegram_command, :status, context}, state) do
     # Get VSM system status
-    response = case Vsmcp.status() do
-      {:ok, status} ->
-        format_status(status)
-      _ ->
+    response = try do
+      status = Vsmcp.status()
+      format_status(status)
+    rescue
+      _error ->
         "❌ Unable to retrieve VSM status"
     end
     
@@ -365,16 +370,44 @@ defmodule Vsmcp.Interfaces.TelegramBot do
   end
   
   defp format_status(status) do
+    # Handle the nested {:ok, data} structure for systems
+    s1_data = case status[:system_1] do
+      {:ok, data} -> data
+      data -> data || %{}
+    end
+    s1_executions = get_in(s1_data, [:metrics, :executions]) || 0
+    
+    s4_data = case status[:system_4] do
+      {:ok, data} -> data
+      data -> data || %{}
+    end
+    s4_sources = s4_data[:intelligence_sources] || s4_data[:environmental_model] || %{}
+    
+    # Variety data is direct, not wrapped in {:ok, _}
+    variety_data = status[:variety] || %{}
+    operational = variety_data[:operational_variety] || 0
+    environmental = variety_data[:environmental_variety] || 0
+    variety_gap = if environmental > 0 do
+      round((environmental - operational) / environmental * 100)
+    else
+      0
+    end
+    
     """
     📊 *VSM System Status*
     
-    S1 (Operations): #{status.system_1[:metrics][:executions]} executions
-    S2 (Coordination): Active
-    S3 (Control): Monitoring
-    S4 (Intelligence): #{map_size(status.system_4[:intelligence_sources])} sources
-    S5 (Policy): Active
+    🔧 S1 (Operations): #{s1_executions} executions
+    🤝 S2 (Coordination): Active
+    📊 S3 (Control): Monitoring
+    🧠 S4 (Intelligence): #{map_size(s4_sources)} sources
+    🎯 S5 (Policy): Active
     
-    Variety Gap: #{status.variety[:gap_percentage]}%
+    📈 Variety Analysis:
+    • Operational: #{operational}
+    • Environmental: #{environmental}
+    • Gap: #{variety_gap}%
+    
+    🤖 Consciousness: #{status[:consciousness][:self_aware] && "Self-aware" || "Initializing"}
     """
   end
   
