@@ -11,18 +11,55 @@ defmodule Vsmcp.Systems.System3 do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current status of System 3.
+
+  Returns resource availability, current allocations, and audit results.
+  """
+  @spec status() :: {:ok, map()}
   def status do
     GenServer.call(__MODULE__, :status)
   end
 
+  @doc """
+  Optimize resource allocation based on policy and intelligence.
+
+  Balances internal efficiency with external adaptation requirements.
+
+  ## Parameters
+
+  - `context`: Current operational context
+  - `policy`: Policy directives from System 5
+  - `intelligence`: Environmental intelligence from System 4
+
+  ## Returns
+
+  An optimization plan with resource allocations and operations.
+  """
+  @spec optimize(map(), map(), map()) :: {:ok, map()}
   def optimize(context, policy, intelligence) do
     GenServer.call(__MODULE__, {:optimize, context, policy, intelligence})
   end
 
+  @doc """
+  Perform an audit on a specified system.
+
+  System 3* (audit channel) directly inspects operational units.
+
+  ## Parameters
+
+  - `system`: Identifier of the system to audit
+
+  ## Returns
+
+  Audit results including compliance status and recommendations.
+  """
+  @spec audit(term()) :: {:ok, map()}
   def audit(system) do
     GenServer.call(__MODULE__, {:audit, system})
   end

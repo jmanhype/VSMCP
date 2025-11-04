@@ -30,7 +30,11 @@ defmodule Vsmcp do
 
   @doc """
   Get the current system status including all subsystems.
+
+  Returns a map containing the status of all 5 VSM systems,
+  variety calculations, and consciousness interface state.
   """
+  @spec status() :: map()
   def status do
     %{
       system_1: System1.status(),
@@ -45,14 +49,33 @@ defmodule Vsmcp do
 
   @doc """
   Analyze variety gaps between operational and environmental complexity.
+
+  Returns analysis of the gap between the system's operational variety
+  and the environmental variety it must manage.
   """
+  @spec analyze_variety() :: {:ok, list(map())} | {:error, term()}
   def analyze_variety do
     VarietyCalculator.analyze_gaps()
   end
 
   @doc """
   Make a strategic decision using the full VSM hierarchy.
+
+  Coordinates all 5 systems to make a strategic decision based on
+  the provided context. The decision flows through System 5 (policy),
+  System 4 (intelligence), System 3 (control), System 2 (coordination),
+  and System 1 (execution).
+
+  ## Parameters
+
+  - `context`: A map containing decision context including constraints,
+    objectives, environment, and other relevant factors.
+
+  ## Returns
+
+  The result from System 1 execution of the coordinated plan.
   """
+  @spec make_decision(map()) :: {:ok, term()} | {:error, term()}
   def make_decision(context) do
     # System 5 sets policy
     policy = System5.get_policy(context)
@@ -72,7 +95,20 @@ defmodule Vsmcp do
 
   @doc """
   Query the consciousness interface for self-awareness.
+
+  Engages the meta-cognitive reflection system to analyze the
+  system's own state, limitations, and opportunities.
+
+  ## Parameters
+
+  - `query`: A string describing what to reflect upon
+
+  ## Examples
+
+      iex> Vsmcp.reflect("What are my current limitations?")
+      {:ok, "Current limitations: ..."}
   """
+  @spec reflect(String.t()) :: {:ok, String.t()} | {:error, term()}
   def reflect(query) do
     Interface.reflect(query)
   end
