@@ -11,18 +11,51 @@ defmodule Vsmcp.Systems.System1 do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current status of System 1.
+
+  Returns the state including active operations, registered capabilities,
+  and execution metrics.
+  """
+  @spec status() :: {:ok, map()}
   def status do
     GenServer.call(__MODULE__, :status)
   end
 
+  @doc """
+  Execute a coordination plan.
+
+  ## Parameters
+
+  - `coordination`: A map containing the coordination plan from System 2
+
+  ## Returns
+
+  Results of executing the operations in the coordination plan.
+  """
+  @spec execute(map()) :: {:ok, list()} | {:error, term()}
   def execute(coordination) do
     GenServer.call(__MODULE__, {:execute, coordination})
   end
 
+  @doc """
+  Register a new capability handler.
+
+  ## Parameters
+
+  - `name`: Atom identifying the capability
+  - `handler`: Function that handles this capability
+
+  ## Returns
+
+  `:ok` on success
+  """
+  @spec register_capability(atom(), function()) :: :ok
   def register_capability(name, handler) do
     GenServer.call(__MODULE__, {:register_capability, name, handler})
   end
