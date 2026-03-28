@@ -11,18 +11,46 @@ defmodule Vsmcp.Systems.System2 do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current status of System 2.
+
+  Returns coordination rules, active coordinations, and conflict history.
+  """
+  @spec status() :: {:ok, map()}
   def status do
     GenServer.call(__MODULE__, :status)
   end
 
+  @doc """
+  Coordinate an optimization plan from System 3.
+
+  Applies coordination rules and anti-oscillation logic to ensure
+  smooth execution across operational units.
+  """
+  @spec coordinate(map()) :: {:ok, map()}
   def coordinate(optimization) do
     GenServer.call(__MODULE__, {:coordinate, optimization})
   end
 
+  @doc """
+  Resolve conflicts between operational units.
+
+  ## Parameters
+
+  - `unit1`: Identifier for first operational unit
+  - `unit2`: Identifier for second operational unit
+  - `issue`: Atom describing the type of conflict
+
+  ## Returns
+
+  A resolution map containing the resolution strategy and actions.
+  """
+  @spec resolve_conflict(term(), term(), atom()) :: {:ok, map()}
   def resolve_conflict(unit1, unit2, issue) do
     GenServer.call(__MODULE__, {:resolve_conflict, unit1, unit2, issue})
   end

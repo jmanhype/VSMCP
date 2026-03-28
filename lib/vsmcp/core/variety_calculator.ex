@@ -11,22 +11,58 @@ defmodule Vsmcp.Core.VarietyCalculator do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current variety calculation state.
+
+  Returns operational variety, environmental variety, identified gaps,
+  and historical data.
+  """
+  @spec current_state() :: map()
   def current_state do
     GenServer.call(__MODULE__, :current_state)
   end
 
+  @doc """
+  Analyze variety gaps and generate recommendations.
+
+  Compares operational variety against environmental variety to identify
+  deficits where the system cannot adequately absorb environmental complexity.
+
+  ## Returns
+
+  A tuple with `:ok` and a list of gap analysis maps, each containing:
+  - Type of gap
+  - Severity level
+  - Gap magnitude
+  - Recommendations for closing the gap
+  """
+  @spec analyze_gaps() :: {:ok, list(map())}
   def analyze_gaps do
     GenServer.call(__MODULE__, :analyze_gaps)
   end
 
+  @doc """
+  Calculate the current operational variety of the system.
+
+  Operational variety is the number of distinct states the system can produce.
+  """
+  @spec calculate_operational_variety() :: {:ok, non_neg_integer()}
   def calculate_operational_variety do
     GenServer.call(__MODULE__, :calculate_operational)
   end
 
+  @doc """
+  Calculate the environmental variety the system must manage.
+
+  Environmental variety is the complexity/number of distinct states
+  in the environment that the system must respond to.
+  """
+  @spec calculate_environmental_variety() :: {:ok, non_neg_integer()}
   def calculate_environmental_variety do
     GenServer.call(__MODULE__, :calculate_environmental)
   end

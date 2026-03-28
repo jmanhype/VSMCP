@@ -11,22 +11,76 @@ defmodule Vsmcp.Systems.System5 do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current status of System 5.
+
+  Returns the system identity, active policies, and decision history.
+  """
+  @spec status() :: {:ok, map()}
   def status do
     GenServer.call(__MODULE__, :status)
   end
 
+  @doc """
+  Get applicable policies for a given context.
+
+  Determines which policies apply and how they should be interpreted
+  based on the current context and system identity.
+
+  ## Parameters
+
+  - `context`: Operational context requiring policy guidance
+
+  ## Returns
+
+  Applicable policies with identity and constraints.
+  """
+  @spec get_policy(map()) :: {:ok, map()}
   def get_policy(context) do
     GenServer.call(__MODULE__, {:get_policy, context})
   end
 
+  @doc """
+  Update the system's identity.
+
+  Modifies the core identity attributes including purpose, values,
+  and constraints.
+
+  ## Parameters
+
+  - `identity`: Map containing identity attributes to merge
+
+  ## Returns
+
+  `:ok` on success
+  """
+  @spec set_identity(map()) :: :ok
   def set_identity(identity) do
     GenServer.call(__MODULE__, {:set_identity, identity})
   end
 
+  @doc """
+  Make a strategic decision balancing internal and external perspectives.
+
+  This is the ultimate authority in the VSM, balancing System 3's
+  internal optimization with System 4's external adaptation.
+
+  ## Parameters
+
+  - `issue`: Description of the strategic issue
+  - `s3_input`: Internal perspective from System 3
+  - `s4_input`: External perspective from System 4
+
+  ## Returns
+
+  Strategic decision with rationale and action plan.
+  """
+  @spec make_strategic_decision(String.t(), map(), map()) :: {:ok, map()}
   def make_strategic_decision(issue, s3_input, s4_input) do
     GenServer.call(__MODULE__, {:strategic_decision, issue, s3_input, s4_input})
   end

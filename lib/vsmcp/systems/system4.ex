@@ -11,22 +11,68 @@ defmodule Vsmcp.Systems.System4 do
 
   # Client API
 
+  @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
+  @doc """
+  Get the current status of System 4.
+
+  Returns the environmental model, predictions, and adaptations.
+  """
+  @spec status() :: {:ok, map()}
   def status do
     GenServer.call(__MODULE__, :status)
   end
 
+  @doc """
+  Scan the external environment for threats and opportunities.
+
+  Analyzes the environment to detect changes, trends, and signals
+  that may require organizational adaptation.
+
+  ## Parameters
+
+  - `context`: Environmental context to scan
+
+  ## Returns
+
+  Scan results including opportunities, threats, and trends.
+  """
+  @spec scan_environment(map()) :: {:ok, map()}
   def scan_environment(context) do
     GenServer.call(__MODULE__, {:scan_environment, context})
   end
 
+  @doc """
+  Predict future scenarios based on current trends.
+
+  ## Parameters
+
+  - `horizon`: Time horizon for predictions (e.g., :short, :medium, :long)
+
+  ## Returns
+
+  Future scenarios with probabilities.
+  """
+  @spec predict_future(term()) :: {:ok, map()}
   def predict_future(horizon) do
     GenServer.call(__MODULE__, {:predict_future, horizon})
   end
 
+  @doc """
+  Suggest adaptations in response to threats or opportunities.
+
+  ## Parameters
+
+  - `threat_or_opportunity`: A map describing the environmental change
+
+  ## Returns
+
+  Adaptation strategy with recommended actions.
+  """
+  @spec suggest_adaptation(map()) :: {:ok, map()}
   def suggest_adaptation(threat_or_opportunity) do
     GenServer.call(__MODULE__, {:suggest_adaptation, threat_or_opportunity})
   end
